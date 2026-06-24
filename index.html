@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Theme styles are defined in css/styles.css (Harudooal palette) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="병원 건강검진 데이터를 기반으로 AI가 개인 맞춤 영양제와 건강 리포트를 제안하는 정밀 웰니스 플랫폼 하루두알" />
+    <meta name="author" content="하루두알" />
+    <title>하루두알 | 의료데이터 기반 맞춤 영양 솔루션</title>
+    <link rel="icon" type="image/jpeg" href="assets/하루두알_로고.jpg" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,600;0,700;1,300;1,600;1,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+  </head>
+  <body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
+      <div class="container px-5">
+        <a class="navbar-brand fw-bold" href="#page-top">하루두알</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu <i class="bi-list"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
+            <li class="nav-item"><a class="nav-link me-lg-3" href="#features">서비스</a></li>
+            <li class="nav-item"><a class="nav-link me-lg-3" href="#tech">기술</a></li>
+            <li class="nav-item"><a class="nav-link me-lg-3" href="#hbti">H-BTI</a></li>
+            <li class="nav-item"><a class="nav-link me-lg-3" href="#partners">파트너십</a></li>
+            <li class="nav-item"><a class="nav-link me-lg-3" href="#roadmap">로드맵</a></li>
+            <li class="nav-item"><a class="nav-link me-lg-3" href="#contact">문의</a></li>
+          </ul>
+          <a class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" href="#contact">
+            <span class="d-flex align-items-center">
+              <i class="bi-rocket-takeoff-fill me-2"></i>
+              <span class="small">데모 신청</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="masthead">
+      <div class="container px-5">
+        <div class="row gx-5 align-items-center">
+          <div class="col-lg-6">
+            <div class="mb-5 mb-lg-0 text-center text-lg-start">
+              <span class="badge bg-light text-dark badge-kv rounded-pill mb-3">의료데이터 기반 정밀 웰니스</span>
+              <h4 class="display-1 mb-3 fw-bold hero-title">
+                <span class="line-1 text-gradient d-block">내 건강 데이터로,</span>
+                <span class="line-2 text-gradient d-block">나만의 영양 솔루션</span>
+              </h4>
+              <p class="lead fw-normal text-muted mb-4">
+                병원 건강검진 데이터를 바탕으로 AI가 필요한 영양제와 생활습관을 제안합니다.<br/>
+                B2B 병원 부가서비스로 검증하고, B2C 구독 서비스로 확장합니다.
+              </p>
+              <div class="d-flex flex-column flex-lg-row align-items-center">
+                <a class="btn btn-primary rounded-pill px-4 py-3 me-lg-3 mb-3 mb-lg-0" href="#contact"><i class="bi bi-calendar-check me-2"></i>PoC/데모 상담</a>
+                <a class="btn btn-outline-dark rounded-pill px-4 py-3" href="#features"><i class="bi bi-box-seam me-2"></i>제품 알아보기</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <!-- Device mockup -->
+            <div class="masthead-device-mockup text-center">
+              <img
+                src="assets/img/image.png"
+                alt="하루두알 서비스 화면"
+                class="img-fluid rounded-3 shadow-sm"
+                style="max-width: 320px; width: 100%; height: auto;"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Trust/Quote -->
+    <aside class="text-center bg-gradient-primary-to-secondary">
+      <div class="container px-5 py-5">
+        <div class="row gx-5 justify-content-center">
+          <div class="col-xl-10">
+            <div class="text-white mb-3 h4">“병원 데이터와 AI를 결합해 개인 맞춤 웰니스를 실현합니다.”</div>
+            <div class="text-white-50 small">개인정보보호법·의료법 준수 / 병원 폐쇄망 내 안전한 처리</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Features -->
+    <section id="features">
+      <div class="container px-5 py-5">
+        <div class="row gx-5 align-items-center">
+          <div class="col-lg-8 order-lg-1 mb-5 mb-lg-0">
+            <div class="container-fluid px-0 px-sm-3">
+              <div class="row gx-5">
+                <div class="col-md-6 mb-5">
+                  <div class="text-center">
+                    <i class="bi-clipboard2-pulse icon-feature text-gradient d-block mb-3"></i>
+                    <h3 class="font-alt">검진데이터 기반 리포트</h3>
+                    <p class="text-muted mb-0">병원 건강검진 결과를 의료 온톨로지로 구조화하여 개인 맞춤 건강 리포트를 생성합니다.</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-5">
+                  <div class="text-center">
+                    <i class="bi-capsule-pill icon-feature text-gradient d-block mb-3"></i>
+                    <h3 class="font-alt">맞춤 영양제 추천</h3>
+                    <p class="text-muted mb-0">유사 건강 상태군 분석과 제품 효능 근거를 통해 개인화된 영양 솔루션을 제안합니다.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-5 mb-md-0">
+                  <div class="text-center">
+                    <i class="bi-shield-lock icon-feature text-gradient d-block mb-3"></i>
+                    <h3 class="font-alt">보안 & 컴플라이언스</h3>
+                    <p class="text-muted mb-0">병원 내부망 처리와 법률 자문으로 안전성과 법적 안정성을 확보했습니다.</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="text-center">
+                    <i class="bi-diagram-3 icon-feature text-gradient d-block mb-3"></i>
+                    <h3 class="font-alt">GCN 기반 학습</h3>
+                    <p class="text-muted mb-0">Graph Convolutional Network(GCN) 구조를 활용해 건강 상태 간 연관성을 학습하고 개인별 맞춤 추천의 정확도를 높입니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 order-lg-0">
+            <!-- Device mockup -->
+            <div class="features-device-mockup text-center">
+              <img
+                src="assets/img/image copy.png"
+                alt="앱 데모"
+                class="img-fluid rounded-3 shadow-sm"
+                style="max-width: 260px; width: 100%; height: auto;"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="container text-center mt-5">
+          <img src="assets/img/hbti.png"
+               alt="H-BTI 16유형 캐릭터 전체"
+               class="img-fluid rounded-3 shadow-sm"
+               style="max-width: 100%; height: auto;" />
+        </div>
+    </section>
+
+    <!-- H-BTI section -->
+    <section id="hbti" class="bg-light">
+      <div class="container px-5 py-5">
+        <div class="row gx-5 align-items-center justify-content-center">
+          <div class="col-lg-10 text-center mb-4">
+            <h2 class="display-6 lh-1 mb-3">H-BTI: 건강 유형 16분류</h2>
+            <p class="lead fw-normal text-muted mb-0">하루두알의 H-BTI는 개인의 건강 성향을 4개 축으로 분석하여 16가지 유형으로 분류합니다. 유형별로 맞춤 운동·식단·영양소를 제안합니다.</p>
+          </div>
+        </div>
+        <div class="row gx-4 gy-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body">
+                <div class="small text-uppercase text-muted mb-2">A/S 차원</div>
+                <h5 class="mb-2">에너지 수준</h5>
+                <p class="text-muted mb-0">Active ↔ Sedentary<br/>활동량, 피로도, 수면/각성 패턴을 반영합니다.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body">
+                <div class="small text-uppercase text-muted mb-2">P/R 차원</div>
+                <h5 class="mb-2">건강관리 방식</h5>
+                <p class="text-muted mb-0">Proactive ↔ Reactive<br/>예방 중심인지, 사후 대응 중심인지를 평가합니다.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body">
+                <div class="small text-uppercase text-muted mb-2">B/I 차원</div>
+                <h5 class="mb-2">영양 패턴</h5>
+                <p class="text-muted mb-0">Balanced ↔ Imbalanced<br/>섭취 균형, 결핍/과잉 위험, 식습관 규칙성을 반영합니다.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body">
+                <div class="small text-uppercase text-muted mb-2">C/T 차원</div>
+                <h5 class="mb-2">스트레스 대응</h5>
+                <p class="text-muted mb-0">Calm ↔ Tense<br/>스트레스 민감도와 회복력(회복 속도)을 고려합니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row gx-5 mt-5 align-items-center">
+          <div class="col-lg-6 order-lg-0 mb-4 mb-lg-0">
+            <div class="card border-0 shadow rounded-xxl">
+              <div class="card-body p-4">
+                <h5 class="mb-3">논문 및 연구 데이터 기반 구성</h5>
+                <ul class="text-muted mb-0">
+                  <li>H-BTI 유형별 리포트는 최신 학술 논문 및 공신력 있는 연구 데이터 기반 구성.</li>
+                  <li>AI 분석과 GCN 모델링을 통한 과학적인 유형별 행동과 영양 패턴 제시.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <div class="card border-0 shadow rounded-xxl">
+              <div class="card-body p-4">
+                <h5 class="mb-3">H-BTI가 앱에서 하는 일</h5>
+                <ul class="text-muted mb-0">
+                  <li>설문·검진·웨어러블 데이터 융합으로 H-BTI 산출</li>
+                  <li>유형별 맞춤 리포트 & 영양제 추천</li>
+                  <li>사용자 피드백을 반영하는 AI 리커멘데이션 루프</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech section -->
+    <section id="tech" class="bg-light">
+      <div class="container px-5 py-5">
+        <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
+          <div class="col-12 col-lg-5">
+            <h2 class="display-6 lh-1 mb-4">GCN 기반 정밀 예측 엔진</h2>
+            <p class="lead fw-normal text-muted mb-3">질병·지표·행동 간 관계를 그래프 구조로 모델링하여 건강 상태를 정밀 예측합니다.</p>
+            <ul class="text-muted mb-4">
+              <li>의료 온톨로지 매핑 & 지식그래프</li>
+              <li>유사도 기반 개인화 추천</li>
+              <li>최신 연구 성과 기반 알고리즘 고도화</li>
+            </ul>
+            <a class="btn btn-outline-dark rounded-pill px-4 py-3" href="#contact"><i class="bi bi-envelope-open me-2"></i>기술 백서 요청</a>
+          </div>
+          <div class="col-sm-8 col-md-6">
+            <div class="px-5 px-sm-0">
+              <img class="img-fluid" src="assets/img/gcn.png" alt="GCN 기반 추천" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roadmap / Phase-2 Plan -->
+    <section id="roadmap">
+      <div class="container px-5 py-5">
+        <div class="row gx-5 align-items-center">
+          <div class="col-lg-12 text-center mb-4">
+            <h2 class="display-6 lh-1">로드맵 · 2단계 사업계획 (’25.10 ~ ’26.01)</h2>
+            <p class="lead fw-normal text-muted">정식 출시를 위한 핵심 마일스톤을 공개합니다.</p>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <h5 class="mb-3">서비스</h5>
+                <ul class="text-muted mb-0">
+                  <li>App 성능 업데이트 및 베타 테스트</li>
+                  <li>H-BTI 16가지 캐릭터/모션 추가</li>
+                  <li>B2B PoC 확장 및 B2C 사전 등록</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <h5 class="mb-3">데이터 & AI</h5>
+                <ul class="text-muted mb-0">
+                  <li>강북삼성병원 데이터셋 추가 수집</li>
+                  <li>영양제 추천 알고리즘 고도화</li>
+                  <li>6개월 후 H-BTI 변화 예측 모델 개발</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <h5 class="mb-3">사업화</h5>
+                <ul class="text-muted mb-0">
+                  <li>영양제 제조사 MOU 및 OEM/ODM 협력</li>
+                  <li>마케팅/기술 개발 인력 고용</li>
+                  <li>사전 홍보 및 App 스토어 등록 준비</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <h5 class="mb-3">보호 전략</h5>
+                <ul class="text-muted mb-0">
+                  <li>보안 기술 특허 출원(2차)</li>
+                  <li>플랫폼 특허 및 논문으로 기술 보호</li>
+                  <li>국내 법률 체계 준수를 위한 컴플라이언스</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partners / B2B -->
+    <section id="partners">
+      <div class="container px-5 py-5">
+        <div class="row gx-5 align-items-center">
+          <div class="col-lg-12 text-center mb-4">
+            <h2 class="display-6 lh-1">병원 기반 수익모델 & 시장 규모</h2>
+            <p class="lead fw-normal text-muted">병원 부가서비스에서 시작해 구독·제휴로 확장되는 수익 구조와 국내 시장 규모를 한눈에 확인하세요.</p>
+          </div>
+        </div>
+        <div class="row gx-5 align-items-stretch mt-2">
+          <!-- 수익모델 -->
+          <div class="col-md-6 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <i class="bi-cash-stack display-6 text-gradient me-2"></i>
+                  <h5 class="mb-0">수익모델</h5>
+                </div>
+                <ul class="text-muted mb-0">
+                  <li><strong>B2B 병원 부가서비스</strong>: 리포트·영양제 매출 쉐어</li>
+                  <li><strong>B2C 구독</strong>: H-BTI 기반 맞춤 리포트 + 정기 배송</li>
+                  <li><strong>제휴/플랫폼</strong>: 보험·제약 제휴, API/화이트라벨</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- 예상 시장 규모 -->
+          <div class="col-md-6 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <i class="bi-bar-chart-line display-6 text-gradient me-2"></i>
+                  <h5 class="mb-0">예상 시장 규모</h5>
+                </div>
+                <ul class="text-muted mb-0">
+                  <li>국내 건강검진 시장 <strong>~2조원</strong> (연간 약 1,500만명)</li>
+                  <li>맞춤 영양제 시장 <strong>~1조원</strong> 수준으로 성장</li>
+                  <li>B2B2C 모델로 <strong>진입장벽 낮고 확장성 높음</strong></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="cta-content">
+        <div class="container px-5">
+          <h2 class="text-white display-4 lh-1 mb-4">
+            하루두알과 함께하실 병원 및 기업 파트너를 모집합니다!
+          </h2>
+          <a class="btn btn-outline-light py-3 px-4 rounded-pill" href="#contact">데모/제휴 문의</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="bg-gradient-primary-to-secondary" id="contact">
+      <div class="container px-5 py-5">
+        <h2 class="text-center text-white font-alt mb-4">문의하기</h2>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card border-0 shadow rounded-xxl">
+              <div class="card-body p-4 p-md-5">
+                <form id="contactForm" action="https://formspree.io/f/xjkjkpnr" method="POST">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..." required />
+                    <label for="name">이름 / 기관</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" required />
+                    <label for="email">이메일</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="phone" name="phone" type="tel" placeholder="010-0000-0000" />
+                    <label for="phone">연락처</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <textarea class="form-control" id="message" name="message" placeholder="프로젝트/제휴 내용을 남겨주세요" style="height: 10rem" required></textarea>
+                    <label for="message">메시지</label>
+                  </div>
+                  <input type="hidden" name="_subject" value="하루두알 웹사이트 문의" />
+                  <div class="d-grid">
+                    <button class="btn btn-primary rounded-pill btn-lg" id="submitButton" type="submit">보내기</button>
+                  </div>
+                </form>
+                <div class="d-none mt-3" id="submitSuccessMessage">
+                  <div class="text-center">
+                    <div class="fw-bolder">메시지가 전송되었습니다. 빠르게 연락드리겠습니다!</div>
+                  </div>
+                </div>
+                <div class="d-none mt-3" id="submitErrorMessage">
+                  <div class="text-center text-danger">전송에 실패했습니다. 다시 시도해주세요.</div>
+                </div>
+              </div>
+            </div>
+            <p class="text-center text-white-50 small mt-3">개인정보는 문의 응대 목적 외에는 사용되지 않습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-center py-5">
+      <div class="container px-5">
+        <div class="text-white-50 small">
+          <div class="mb-2">© 하루두알 2025. All Rights Reserved.</div>
+          <a href="#">개인정보처리방침</a>
+          <span class="mx-1">·</span>
+          <a href="#">이용약관</a>
+          <span class="mx-1">·</span>
+          <a href="#">FAQ</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Feedback Modal (optional, kept if you need SB Forms) -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-gradient-primary-to-secondary p-4">
+            <h5 class="modal-title font-alt text-white" id="feedbackModalLabel">Send feedback</h5>
+            <button class="btn-close btn-close-white" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body border-0 p-4">
+            <p>이 모달은 템플릿 호환을 위해 유지되어 있습니다. 자체 문의 폼(#contact)을 사용합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+
+    <!-- Lightweight form handler (no external service) -->
+    <script>
+      const form = document.getElementById('contactForm');
+      const successMsg = document.getElementById('submitSuccessMessage');
+      const errorMsg = document.getElementById('submitErrorMessage');
+
+      form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const action = form.getAttribute('action');
+
+        try {
+          const response = await fetch(action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json',
+            },
+          });
+
+          if (response.ok) {
+            successMsg?.classList.remove('d-none');
+            errorMsg?.classList.add('d-none');
+            form.reset();
+          } else {
+            throw new Error('Form submission failed');
+          }
+        } catch (err) {
+          successMsg?.classList.add('d-none');
+          errorMsg?.classList.remove('d-none');
+        }
+      });
+    </script>
+  </body>
+</html>
