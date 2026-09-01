@@ -1,11 +1,10 @@
 /* ===========================================================================
    문의 · 뉴스레터 폼
    ---------------------------------------------------------------------------
-   ENDPOINT 가 비어 있으면 메일 앱을 열어 보낸다(오늘 바로 쓸 수 있게).
-   백엔드나 외부 폼 주소가 정해지면 아래 한 줄만 채우면 fetch 전송으로 바뀐다.
-   나머지 코드는 손대지 않아도 된다.
+   브라우저에는 비밀키를 넣지 않는다. 공개 API가 DB 저장과 내부 메일 알림을 맡는다.
+   ENDPOINT 가 비어 있을 때만 비상 대체 경로로 메일 앱을 연다.
    ========================================================================= */
-var ENDPOINT = '';                       /* 예: 'https://api.harudooal.com/contact/' */
+var ENDPOINT = 'https://api.harudooal.com/api/v1/users/public/website-submissions/';
 var MAIL_TO  = 'support@harudooal.com';
 
 /* 앱의 실제 데이터. src/constants/hbtiCatchphrases.ts, hbtiVisualThemes.ts */
@@ -104,9 +103,14 @@ var TYPES = [
     if (body) data.message = body.value.trim();
     var picked = form.querySelector('input[name="hbti"]:checked');
     if (picked) data.hbti = picked.value;
+    var privacy = form.querySelector('#agree-privacy');
+    var marketing = form.querySelector('#agree-ads');
     var useType = form.querySelector('#agree-type');
-    if (useType) data.agreeTypeUse = useType.checked;
-    requiredConsents().forEach(function (c) { data[c.id] = true; });
+    var trap = form.querySelector('input[name="website"]');
+    data.privacyConsent = Boolean(privacy && privacy.checked);
+    data.marketingConsent = Boolean(marketing && marketing.checked);
+    data.typeUseConsent = Boolean(useType && useType.checked);
+    data.website = trap ? trap.value : '';
     return data;
   }
 
@@ -120,7 +124,7 @@ var TYPES = [
       subject = '[뉴스레터 구독] ' + (d.hbti || '유형 미선택');
       lines = ['구독 주소: ' + d.email,
                '유형: ' + (d.hbti || '아직 모름'),
-               '유형 활용 동의(선택): ' + (d.agreeTypeUse ? '동의함' : '동의 안 함'),
+               '유형 활용 동의(선택): ' + (d.typeUseConsent ? '동의함' : '동의 안 함'),
                '',
                '— 개인정보 수집·이용 및 광고성 정보 수신에 동의함 (' + d.at + ')'];
     }
@@ -166,6 +170,7 @@ var TYPES = [
     fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'omit',
       body: JSON.stringify(data)
     }).then(function (r) {
       if (!r.ok) throw new Error(r.status);
