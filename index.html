@@ -1,512 +1,1061 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
-    <!-- Theme styles are defined in css/styles.css (Harudooal palette) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="병원 건강검진 데이터를 기반으로 AI가 개인 맞춤 영양제와 건강 리포트를 제안하는 정밀 웰니스 플랫폼 하루두알" />
-    <meta name="author" content="하루두알" />
-    <title>하루두알 | 의료데이터 기반 맞춤 영양 솔루션</title>
-    <link rel="icon" type="image/jpeg" href="/favicon.jpg?v=2" />
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Google fonts-->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,600;0,700;1,300;1,600;1,700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
-  </head>
-  <body id="page-top">
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-xl navbar-light fixed-top shadow-sm" id="mainNav">
-      <div class="container px-5">
-        <a class="navbar-brand fw-bold" href="#page-top">하루두알</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu <i class="bi-list"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
-            <li class="nav-item"><a class="nav-link me-lg-3" href="#features">서비스</a></li>
-            <li class="nav-item"><a class="nav-link me-lg-3" href="#tech">기술</a></li>
-            <li class="nav-item"><a class="nav-link me-lg-3" href="#hbti">H-BTI</a></li>
-            <li class="nav-item"><a class="nav-link me-lg-3" href="#partners">파트너십</a></li>
-            <li class="nav-item"><a class="nav-link me-lg-3" href="#roadmap">로드맵</a></li>
-            <li class="nav-item"><a class="nav-link me-lg-3" href="esg.html">ESG 자료실</a></li>
-            <li class="nav-item"><a class="nav-link me-lg-3" href="#contact">문의</a></li>
-          </ul>
-          <a class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" href="#contact">
-            <span class="d-flex align-items-center">
-              <i class="bi-rocket-takeoff-fill me-2"></i>
-              <span class="small">데모 신청</span>
-            </span>
-          </a>
-        </div>
-      </div>
-    </nav>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>하루두알 · 건강행동유형 도감</title>
+<meta name="description" content="48문항 5~7분이면 16가지 건강행동유형 중 내 유형이 나와요. 스크롤로 도감을 지나 내 카드 한 장까지.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%230E7490'/><circle cx='12' cy='16' r='4' fill='%23F2F2EF'/><circle cx='21' cy='16' r='4' fill='%23F2F2EF'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+/* ─────────────────────────────────────────────────────────────────────────
+   하루두알 도감 — 토큰
+   앱이 이미 쓰는 색을 그대로 가져온다 (src/theme.ts, hbtiVisualThemes.ts).
+   ──────────────────────────────────────────────────────────────────────── */
+:root {
+  --sc-canvas:     #F2F2EF;
+  --sc-surface:    #FFFFFF;
+  --sc-ink:        #14181C;
+  --sc-ink-soft:   #55606C;
+  --sc-accent:     #0E7490;   /* brandAccent */
+  --sc-accent-ink: #FFFFFF;
+  --cta:           #127E98;   /* ctaPrimary — 흰 텍스트 AA 확보된 값 */
 
-    <!-- Hero -->
-    <header class="masthead">
-      <div class="container px-5">
-        <div class="row gx-5 align-items-center">
-          <div class="col-lg-6">
-            <div class="mb-5 mb-lg-0 text-center text-lg-start">
-              <span class="badge bg-light text-dark badge-kv rounded-pill mb-3">의료데이터 기반 정밀 웰니스</span>
-              <h4 class="display-1 mb-3 fw-bold hero-title">
-                <span class="line-1 text-gradient d-block">내 건강 데이터로,</span>
-                <span class="line-2 text-gradient d-block">나만의 영양 솔루션</span>
-              </h4>
-              <p class="lead fw-normal text-muted mb-4">
-                병원 건강검진 데이터를 바탕으로 AI가 필요한 영양제와 생활습관을 제안합니다.<br/>
-                B2B 병원 부가서비스로 검증하고, B2C 구독 서비스로 확장합니다.
-              </p>
-              <div class="d-flex flex-column flex-lg-row align-items-center">
-                <a class="btn btn-primary rounded-pill px-4 py-3 me-lg-3 mb-3 mb-lg-0" href="#contact"><i class="bi bi-calendar-check me-2"></i>PoC/데모 상담</a>
-                <a class="btn btn-outline-dark rounded-pill px-4 py-3" href="#features"><i class="bi bi-box-seam me-2"></i>제품 알아보기</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <!-- Device mockup -->
-            <div class="masthead-device-mockup text-center">
-              <img
-                src="assets/img/image.png"
-                alt="하루두알 서비스 화면"
-                class="img-fluid rounded-3 shadow-sm"
-                style="max-width: 320px; width: 100%; height: auto;"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+  --sc-font-display: "Jua", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --sc-font-text:    "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
 
-    <!-- Trust/Quote -->
-    <aside class="text-center bg-gradient-primary-to-secondary">
-      <div class="container px-5 py-5">
-        <div class="row gx-5 justify-content-center">
-          <div class="col-xl-10">
-            <div class="text-white mb-3 h4">“병원 데이터와 AI를 결합해 개인 맞춤 웰니스를 실현합니다.”</div>
-            <div class="text-white-50 small">개인정보보호법·의료법 준수 / 병원 폐쇄망 내 안전한 처리</div>
-          </div>
-        </div>
-      </div>
-    </aside>
+  --sc-shadow-color: 205 30% 24%;
+  --sc-r-sm: 8px; --sc-r-md: 14px; --sc-r-lg: 22px;
 
-    <!-- Features -->
-    <section id="features">
-      <div class="container px-5 py-5">
-        <div class="row gx-5 align-items-center">
-          <div class="col-lg-8 order-lg-1 mb-5 mb-lg-0">
-            <div class="container-fluid px-0 px-sm-3">
-              <div class="row gx-5">
-                <div class="col-md-6 mb-5">
-                  <div class="text-center">
-                    <i class="bi-clipboard2-pulse icon-feature text-gradient d-block mb-3"></i>
-                    <h3 class="font-alt">검진데이터 기반 리포트</h3>
-                    <p class="text-muted mb-0">병원 건강검진 결과를 의료 온톨로지로 구조화하여 개인 맞춤 건강 리포트를 생성합니다.</p>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-5">
-                  <div class="text-center">
-                    <i class="bi-capsule-pill icon-feature text-gradient d-block mb-3"></i>
-                    <h3 class="font-alt">맞춤 영양제 추천</h3>
-                    <p class="text-muted mb-0">유사 건강 상태군 분석과 제품 효능 근거를 통해 개인화된 영양 솔루션을 제안합니다.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-5 mb-md-0">
-                  <div class="text-center">
-                    <i class="bi-shield-lock icon-feature text-gradient d-block mb-3"></i>
-                    <h3 class="font-alt">보안 & 컴플라이언스</h3>
-                    <p class="text-muted mb-0">병원 내부망 처리와 법률 자문으로 안전성과 법적 안정성을 확보했습니다.</p>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="text-center">
-                    <i class="bi-diagram-3 icon-feature text-gradient d-block mb-3"></i>
-                    <h3 class="font-alt">GCN 기반 학습</h3>
-                    <p class="text-muted mb-0">Graph Convolutional Network(GCN) 구조를 활용해 건강 상태 간 연관성을 학습하고 개인별 맞춤 추천의 정확도를 높입니다.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 order-lg-0">
-            <!-- Device mockup -->
-            <div class="features-device-mockup text-center">
-              <img
-                src="assets/img/image copy.png"
-                alt="앱 데모"
-                class="img-fluid rounded-3 shadow-sm"
-                style="max-width: 260px; width: 100%; height: auto;"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-        <div class="container text-center mt-5">
-          <img src="assets/img/hbti.png"
-               alt="H-BTI 16유형 캐릭터 전체"
-               class="img-fluid rounded-3 shadow-sm"
-               style="max-width: 100%; height: auto;" />
-        </div>
-    </section>
+  /* 4차원 축 색 (theme.ts) */
+  --ax-as: #0E7490; --ax-pr: #C2410C; --ax-bi: #15803D; --ax-ct: #BE185D;
 
-    <!-- H-BTI section -->
-    <section id="hbti" class="bg-light">
-      <div class="container px-5 py-5">
-        <div class="row gx-5 align-items-center justify-content-center">
-          <div class="col-lg-10 text-center mb-4">
-            <h2 class="display-6 lh-1 mb-3">H-BTI: 건강 유형 16분류</h2>
-            <p class="lead fw-normal text-muted mb-0">하루두알의 H-BTI는 개인의 건강 성향을 4개 축으로 분석하여 16가지 유형으로 분류합니다. 유형별로 맞춤 운동·식단·영양소를 제안합니다.</p>
-          </div>
-        </div>
-        <div class="row gx-4 gy-4">
-          <div class="col-md-6 col-lg-3">
-            <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body">
-                <div class="small text-uppercase text-muted mb-2">A/S 차원</div>
-                <h5 class="mb-2">에너지 수준</h5>
-                <p class="text-muted mb-0">Active ↔ Sedentary<br/>활동량, 피로도, 수면/각성 패턴을 반영합니다.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body">
-                <div class="small text-uppercase text-muted mb-2">P/R 차원</div>
-                <h5 class="mb-2">건강관리 방식</h5>
-                <p class="text-muted mb-0">Proactive ↔ Reactive<br/>예방 중심인지, 사후 대응 중심인지를 평가합니다.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body">
-                <div class="small text-uppercase text-muted mb-2">B/I 차원</div>
-                <h5 class="mb-2">영양 패턴</h5>
-                <p class="text-muted mb-0">Balanced ↔ Imbalanced<br/>섭취 균형, 결핍/과잉 위험, 식습관 규칙성을 반영합니다.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body">
-                <div class="small text-uppercase text-muted mb-2">C/T 차원</div>
-                <h5 class="mb-2">스트레스 대응</h5>
-                <p class="text-muted mb-0">Calm ↔ Tense<br/>스트레스 민감도와 회복력(회복 속도)을 고려합니다.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row gx-5 mt-5 align-items-center">
-          <div class="col-lg-6 order-lg-0 mb-4 mb-lg-0">
-            <div class="card border-0 shadow rounded-xxl">
-              <div class="card-body p-4">
-                <h5 class="mb-3">논문 및 연구 데이터 기반 구성</h5>
-                <ul class="text-muted mb-0">
-                  <li>H-BTI 유형별 리포트는 최신 학술 논문 및 공신력 있는 연구 데이터 기반 구성.</li>
-                  <li>AI 분석과 GCN 모델링을 통한 과학적인 유형별 행동과 영양 패턴 제시.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 order-lg-1">
-            <div class="card border-0 shadow rounded-xxl">
-              <div class="card-body p-4">
-                <h5 class="mb-3">H-BTI가 앱에서 하는 일</h5>
-                <ul class="text-muted mb-0">
-                  <li>설문·검진·웨어러블 데이터 융합으로 H-BTI 산출</li>
-                  <li>유형별 맞춤 리포트 & 영양제 추천</li>
-                  <li>사용자 피드백을 반영하는 AI 리커멘데이션 루프</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  /* 카메라 — JS가 매 프레임 다시 쓴다 */
+  --h-t: 0;
+  --h-l0: 0; --h-l1: 0; --h-l2: 0; --h-l3: 0; --h-l4: 0; --h-l5: 0;
+  --h-rifle: 0;      /* 시그니처: 손으로 민 거리, 카드 폭 단위 */
+  --focus-x: 0px; --focus-y: 0px;
 
-    <!-- Tech section -->
-    <section id="tech" class="bg-light">
-      <div class="container px-5 py-5">
-        <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
-          <div class="col-12 col-lg-5">
-            <h2 class="display-6 lh-1 mb-4">GCN 기반 정밀 예측 엔진</h2>
-            <p class="lead fw-normal text-muted mb-3">질병·지표·행동 간 관계를 그래프 구조로 모델링하여 건강 상태를 정밀 예측합니다.</p>
-            <ul class="text-muted mb-4">
-              <li>의료 온톨로지 매핑 & 지식그래프</li>
-              <li>유사도 기반 개인화 추천</li>
-              <li>최신 연구 성과 기반 알고리즘 고도화</li>
-            </ul>
-            <a class="btn btn-outline-dark rounded-pill px-4 py-3" href="#contact"><i class="bi bi-envelope-open me-2"></i>기술 백서 요청</a>
-          </div>
-          <div class="col-sm-8 col-md-6">
-            <div class="px-5 px-sm-0">
-              <img class="img-fluid" src="assets/img/gcn.png" alt="GCN 기반 추천" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  --cw: clamp(88px, 8.9vw, 128px);
+  --gap: clamp(9px, 1.2vw, 18px);
+}
 
-    <!-- Roadmap / Phase-2 Plan -->
-    <section id="roadmap">
-      <div class="container px-5 py-5">
-        <div class="row gx-5 align-items-center">
-          <div class="col-lg-12 text-center mb-4">
-            <h2 class="display-6 lh-1">로드맵 · 2단계 사업계획 (’25.10 ~ ’26.01)</h2>
-            <p class="lead fw-normal text-muted">정식 출시를 위한 핵심 마일스톤을 공개합니다.</p>
-          </div>
-          <div class="col-md-6 mb-4">
-            <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body p-4">
-                <h5 class="mb-3">서비스</h5>
-                <ul class="text-muted mb-0">
-                  <li>App 성능 업데이트 및 베타 테스트</li>
-                  <li>H-BTI 16가지 캐릭터/모션 추가</li>
-                  <li>B2B PoC 확장 및 B2C 사전 등록</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 mb-4">
-            <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body p-4">
-                <h5 class="mb-3">데이터 & AI</h5>
-                <ul class="text-muted mb-0">
-                  <li>강북삼성병원 데이터셋 추가 수집</li>
-                  <li>영양제 추천 알고리즘 고도화</li>
-                  <li>6개월 후 H-BTI 변화 예측 모델 개발</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 mb-4">
-            <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body p-4">
-                <h5 class="mb-3">사업화</h5>
-                <ul class="text-muted mb-0">
-                  <li>영양제 제조사 MOU 및 OEM/ODM 협력</li>
-                  <li>마케팅/기술 개발 인력 고용</li>
-                  <li>사전 홍보 및 App 스토어 등록 준비</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 mb-4">
-            <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body p-4">
-                <h5 class="mb-3">보호 전략</h5>
-                <ul class="text-muted mb-0">
-                  <li>보안 기술 특허 출원(2차)</li>
-                  <li>플랫폼 특허 및 논문으로 기술 보호</li>
-                  <li>국내 법률 체계 준수를 위한 컴플라이언스</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+body { background: var(--sc-canvas); color: var(--sc-ink); }
+/* 한글은 어절 단위로만 끊는다. 기본값은 음절 아무 데서나 끊어 "좋아하지/만" 이 된다. */
+html { word-break: keep-all; overflow-wrap: break-word; }
+::selection { background: color-mix(in oklab, var(--sc-accent) 26%, transparent); }
 
-    <!-- Partners / B2B -->
-    <section id="partners">
-      <div class="container px-5 py-5">
-        <div class="row gx-5 align-items-center">
-          <div class="col-lg-12 text-center mb-4">
-            <h2 class="display-6 lh-1">병원 기반 수익모델 & 시장 규모</h2>
-            <p class="lead fw-normal text-muted">병원 부가서비스에서 시작해 구독·제휴로 확장되는 수익 구조와 국내 시장 규모를 한눈에 확인하세요.</p>
-          </div>
-        </div>
-        <div class="row gx-5 align-items-stretch mt-2">
-          <!-- 수익모델 -->
-          <div class="col-md-6 mb-4">
-            <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body p-4">
-                <div class="d-flex align-items-center mb-3">
-                  <i class="bi-cash-stack display-6 text-gradient me-2"></i>
-                  <h5 class="mb-0">수익모델</h5>
-                </div>
-                <ul class="text-muted mb-0">
-                  <li><strong>B2B 병원 부가서비스</strong>: 리포트·영양제 매출 쉐어</li>
-                  <li><strong>B2C 구독</strong>: H-BTI 기반 맞춤 리포트 + 정기 배송</li>
-                  <li><strong>제휴/플랫폼</strong>: 보험·제약 제휴, API/화이트라벨</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- 예상 시장 규모 -->
-          <div class="col-md-6 mb-4">
-            <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body p-4">
-                <div class="d-flex align-items-center mb-3">
-                  <i class="bi-bar-chart-line display-6 text-gradient me-2"></i>
-                  <h5 class="mb-0">예상 시장 규모</h5>
-                </div>
-                <ul class="text-muted mb-0">
-                  <li>국내 건강검진 시장 <strong>~2조원</strong> (연간 약 1,500만명)</li>
-                  <li>맞춤 영양제 시장 <strong>~1조원</strong> 수준으로 성장</li>
-                  <li>B2B2C 모델로 <strong>진입장벽 낮고 확장성 높음</strong></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+/* ── 방 ─────────────────────────────────────────────────────────────────
+   하나의 세계라 바닥색은 구간마다 바뀌지 않는다. 트랙 전체에 걸쳐
+   한 번만 천천히 이동한다 (--h-t). */
+.room { position: absolute; inset: 0; }
+.room__base {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 88% at 50% 8%, #FFFFFF 0%, #F4F4F1 46%, #E8E9E4 100%);
+}
+.room__wash {
+  position: absolute; inset: 0;
+  opacity: var(--h-t);
+  background:
+    radial-gradient(110% 82% at 50% 96%, #E7EEF0 0%, #EDEDE8 52%, #E2E5E2 100%);
+}
+/* 보관고: 16장 중 열 장이 아주 흐리게, 아주 천천히 떠다닌다.
+   손을 움직이면 깊이가 따라 밀린다(가까운 것이 더 많이). */
+.room__deep { position: absolute; inset: -10%; overflow: hidden; }
+.deep-card {
+  position: absolute; width: var(--w); aspect-ratio: 3 / 4;
+  border-radius: 16px; background: var(--c);
+  opacity: 0.085; filter: blur(22px);
+  will-change: transform;
+}
+/* 포인터를 따라오는 빛. 고른 유형의 색을 띤다. */
+.room__light {
+  position: absolute; left: 0; top: 0;
+  width: 58vmax; height: 58vmax; margin: -29vmax 0 0 -29vmax;
+  pointer-events: none; will-change: transform;
+  background: radial-gradient(circle,
+    color-mix(in oklab, var(--pc, #0E7490) 17%, transparent) 0%,
+    color-mix(in oklab, var(--pc, #0E7490) 6%, transparent) 34%,
+    transparent 62%);
+  opacity: 0; transition: opacity 700ms var(--sc-ease-out);
+}
+.room.is-lit .room__light { opacity: 1; }
 
-    <!-- ESG Documents -->
-    <section id="esg" class="esg-highlight bg-light">
-      <div class="container px-5 py-5">
-        <div class="row gx-5 align-items-center">
-          <div class="col-lg-8">
-            <span class="section-eyebrow">ESG DOCUMENTS</span>
-            <h2 class="display-6 lh-1 mt-2 mb-3">하루두알 ESG 자료실</h2>
-            <p class="lead fw-normal text-muted mb-4">
-              인권 존중, 윤리경영, 부패방지 등 하루두알의 책임 있는 경영 원칙과 실천 기준을 투명하게 공개합니다.
-            </p>
-          </div>
-          <div class="col-lg-4 text-lg-end">
-            <a class="btn btn-primary rounded-pill px-4 py-3" href="esg.html">
-              <i class="bi bi-file-earmark-text me-2" aria-hidden="true"></i>ESG 정책 및 지침서 보기
-            </a>
+.room__floor {
+  position: absolute; inset: 62% 0 0 0;
+  background: linear-gradient(to bottom, transparent, color-mix(in oklab, #1F2A33 9%, transparent));
+}
+
+/* ── 도감의 벽 ──────────────────────────────────────────────────────────── */
+.scene { position: absolute; inset: 0; display: grid; place-items: center; perspective: 1200px; }
+.wall { transform-style: preserve-3d; will-change: transform; }
+/* 스크롤이 멈춰도 벽은 아주 느리게 숨을 쉰다. 정지 화면이 없으면 휠의 계단도 덜 보인다. */
+.wall__breath { transform-style: preserve-3d; will-change: transform; }
+.wall__grid {
+  display: grid; grid-template-columns: repeat(4, var(--cw));
+  gap: var(--gap); margin: 0; padding: 0; list-style: none;
+  transform-style: preserve-3d;
+}
+
+.card {
+  --lift: 0;
+  position: relative; aspect-ratio: 3 / 4;
+  transform-style: preserve-3d;
+  transform:
+    translate3d(0, 0, calc(var(--lift) * 74px));
+  transition: transform 520ms var(--sc-ease-out);
+}
+.card__face {
+  position: absolute; inset: 0;
+  display: block; width: 100%; height: 100%;
+  border: 0; padding: 0; cursor: pointer;
+  border-radius: var(--sc-r-lg);
+  background: var(--c);
+  box-shadow: var(--sc-e1), var(--sc-edge);
+  overflow: hidden;
+  text-align: left;
+  transition: box-shadow 220ms var(--sc-ease-out), filter 320ms var(--sc-ease-out);
+}
+.card__face:focus-visible { outline: 3px solid var(--sc-ink); outline-offset: 3px; }
+.card__img {
+  position: absolute; inset: 4% 4% 22% 4%;
+  width: 92%; height: 74%; object-fit: contain;
+}
+.card__code {
+  position: absolute; left: 0; right: 0; bottom: 6%;
+  text-align: center;
+  font-family: var(--sc-font-display);
+  font-size: clamp(0.62rem, 1.05vw, 0.95rem);
+  letter-spacing: 0.06em;
+  color: #FFFFFF;
+}
+.card__line {
+  position: absolute; inset: auto 6% 6% 6%;
+  opacity: 0; pointer-events: none;
+  font-size: 0.68rem; line-height: 1.35; color: #FFFFFF;
+}
+/* 뒤적일 때 손 밑으로 들리는 한 장 */
+.card.is-lifted { --lift: 1; z-index: 3; }
+.card.is-lifted .card__face { box-shadow: var(--sc-e3); }
+.card.is-out .card__face { filter: saturate(0.16) brightness(1.12); }
+
+/* 벽 위에 뜨는 이름표 — 들린 카드의 문구를 읽는 자리 */
+.readout {
+  position: absolute; left: 50%; bottom: clamp(4rem, 12vh, 9rem);
+  translate: -50% 0;
+  display: flex; align-items: center; gap: var(--sc-3);
+  padding: var(--sc-2) var(--sc-4);
+  border-radius: var(--sc-r-pill);
+  background: color-mix(in oklab, var(--sc-surface) 92%, transparent);
+  box-shadow: var(--sc-e2);
+  opacity: 0; transition: opacity 240ms var(--sc-ease-out);
+  max-width: min(30rem, 84vw);
+  margin: 0;
+}
+.readout.is-on { opacity: 1; }
+.readout__code {
+  font-family: var(--sc-font-display); font-size: 0.95rem;
+  color: var(--rc, var(--sc-accent)); letter-spacing: 0.04em;
+}
+.readout__line { font-size: 0.9rem; color: var(--sc-ink); }
+
+.hint {
+  position: absolute; left: 50%; translate: -50% 0; bottom: clamp(1.6rem, 5vh, 3.2rem);
+  font-size: 0.8rem; color: var(--sc-ink-soft); margin: 0;
+  opacity: calc(1 - var(--h-l0) * 2.6);
+  transition: opacity 300ms var(--sc-ease-out);
+}
+.hint.is-used { opacity: 0; }
+
+/* ── 3막: 축이 정해지는 자리 ─────────────────────────────────────────────── */
+.axes {
+  position: absolute; left: 50%; top: clamp(1.6rem, 7vh, 4.5rem); translate: -50% 0;
+  display: flex; gap: var(--sc-2); flex-wrap: wrap; justify-content: center;
+  width: min(46rem, 88vw);
+}
+.axis {
+  display: flex; align-items: baseline; gap: 0.4rem; margin: 0;
+  padding: 0.35rem 0.8rem; border-radius: var(--sc-r-pill);
+  background: var(--sc-surface); box-shadow: var(--sc-e1);
+  font-size: 0.84rem; color: var(--sc-ink-soft);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 320ms var(--sc-ease-out), transform 320ms var(--sc-ease-out);
+}
+.axis.is-on { opacity: 1; transform: none; }
+.axis b { font-family: var(--sc-font-display); font-size: 0.95rem; color: var(--ac); }
+.count {
+  position: absolute; left: 50%; translate: -50% 0; bottom: clamp(3.4rem, 11vh, 7rem);
+  font-family: var(--sc-font-display); font-size: clamp(1.25rem, 2.6vw, 2rem);
+  color: var(--sc-ink); font-variant-numeric: tabular-nums; margin: 0;
+  opacity: 0; transition: opacity 300ms var(--sc-ease-out);
+}
+.count.is-on { opacity: 1; }
+.count span { color: var(--sc-accent); }
+
+/* ── 4막: 내 카드 (피크) ────────────────────────────────────────────────── */
+.pool {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  width: min(46vw, 620px); aspect-ratio: 1; pointer-events: none;
+  background: radial-gradient(circle,
+    color-mix(in oklab, var(--pc, #76543D) 20%, transparent) 0%,
+    color-mix(in oklab, var(--pc, #76543D) 7%, transparent) 38%,
+    transparent 66%);
+  opacity: clamp(0, min(calc((var(--h-l3) - 0.08) * 2.4), calc((1.04 - var(--h-l3)) * 9)), 1);
+}
+.peak { position: relative; display: grid; place-items: center; transform-style: preserve-3d; }
+.peak__card {
+  position: relative; width: calc(var(--cw) * 2.133); aspect-ratio: 3 / 4;
+  border-radius: var(--sc-r-lg); background: var(--pc, #76543D);
+  box-shadow: var(--sc-e3), var(--sc-edge); overflow: hidden;
+}
+.peak__img { position: absolute; inset: 4% 4% 20% 4%; width: 92%; height: 76%; object-fit: contain; }
+.peak__code {
+  position: absolute; left: 0; right: 0; bottom: 6%; text-align: center;
+  font-family: var(--sc-font-display); color: #fff;
+  font-size: clamp(0.62rem, 1.05vw, 0.95rem); letter-spacing: 0.06em;
+}
+.peak__phrase {
+  position: absolute; left: 50%; translate: -50% 0;
+  top: calc(50% + clamp(142px, 18vh, 215px));
+  max-width: min(38rem, 88vw); text-align: center; margin: 0;
+  font-family: var(--sc-font-display); font-size: clamp(1.2rem, 2.7vw, 2.15rem);
+  line-height: 1.3; color: var(--sc-ink); text-wrap: balance;
+}
+/* 다섯 칸은 카드 왼쪽에 세로로 놓인다. 카피는 오른쪽에 있으므로 서로 닿지 않는다. */
+.tray {
+  position: absolute; left: clamp(1rem, 7vw, 7rem); top: 50%; translate: 0 -50%;
+  display: grid; gap: clamp(0.5rem, 1.1vw, 0.9rem);
+}
+.tray__tile {
+  width: clamp(56px, 6.4vw, 92px); aspect-ratio: 1;
+  border-radius: var(--sc-r-md); background: var(--sc-surface);
+  box-shadow: var(--sc-e1), var(--sc-edge), 0 0 0 1px color-mix(in oklab, var(--sc-ink) 9%, transparent);
+  display: grid; place-items: center; padding: 11%;
+}
+.tray__tile img { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
+.tray__note {
+  position: absolute; left: clamp(1rem, 7vw, 7rem);
+  top: calc(50% + clamp(185px, 29vh, 290px));
+  max-width: 15rem;
+  font-size: 0.78rem; line-height: 1.5; color: var(--sc-ink-soft); margin: 0;
+}
+
+/* ── 5막: 28칸 ─────────────────────────────────────────────────────────── */
+.track { display: grid; gap: clamp(5px, 0.7vw, 11px); grid-template-columns: repeat(7, 1fr);
+  width: min(34rem, 74vw); margin: 0; padding: 0; list-style: none; }
+.track__cell {
+  aspect-ratio: 1; border-radius: var(--sc-r-sm);
+  background: color-mix(in oklab, var(--sc-accent) 82%, white);
+  opacity: 0.16;
+  transition: opacity 460ms var(--sc-ease-out), transform 460ms var(--sc-ease-out);
+  transform: scale(0.94);
+}
+.track__cell.is-on { transform: none; }
+.track__cell.is-on { opacity: 1; }
+.props { position: absolute; inset: 0; pointer-events: none; }
+.prop {
+  position: absolute; width: clamp(46px, 5.2vw, 78px); height: auto;
+  border-radius: 16px; box-shadow: 0 0 0 1px color-mix(in oklab, var(--sc-ink) 9%, transparent);
+  filter: drop-shadow(0 8px 18px hsl(var(--sc-shadow-color) / 0.28));
+  opacity: 0;
+}
+.prop.is-on { opacity: 1; transition: opacity 420ms var(--sc-ease-out); }
+.prop--a { left: 7%; top: 14%; }
+.prop--b { left: 47%; top: 7%; }
+.prop--c { left: 13%; bottom: 11%; }
+.track__mini {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  width: clamp(58px, 6vw, 86px); aspect-ratio: 3/4; border-radius: var(--sc-r-md);
+  background: var(--pc, #76543D); box-shadow: var(--sc-e2); overflow: hidden;
+}
+.track__mini img { position: absolute; inset: 6%; width: 88%; height: 88%; object-fit: contain; }
+
+/* ── 6막: 방의 끝 ──────────────────────────────────────────────────────── */
+.plate {
+  display: grid; justify-items: center; gap: var(--sc-4);
+  padding: clamp(1.6rem, 4vw, 3rem);
+  border-radius: var(--sc-r-lg); background: var(--sc-surface);
+  box-shadow: var(--sc-e3), var(--sc-edge);
+  width: min(31rem, 86vw);
+}
+.plate__logo { width: 108px; height: auto; }
+.cta {
+  display: inline-block; padding: 0.95rem 1.9rem; border-radius: var(--sc-r-pill);
+  background: var(--cta); color: #FFFFFF; text-decoration: none;
+  font-family: var(--sc-font-display); font-size: 1.05rem; white-space: nowrap;
+  box-shadow: var(--sc-e2);
+  transition: transform 140ms var(--sc-ease-out), background-color 140ms var(--sc-ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .cta:hover { background: #0E6E86; transform: translateY(-2px); } }
+.cta:active { transform: translateY(1px); }
+.cta:focus-visible { outline: 3px solid var(--sc-ink); outline-offset: 3px; }
+.plate__links { margin: calc(var(--sc-3) * -1) 0 0; font-size: 0.86rem; color: var(--sc-ink-soft); }
+.plate__links a { color: #0B6076; text-underline-offset: 3px; }
+.plate__legal { font-size: 0.72rem; line-height: 1.6; color: var(--sc-ink-soft); text-align: center; margin: 0; }
+.plate__legal a { color: #0B6076; text-underline-offset: 3px; }
+
+/* ── 지도 (이 그래머의 내비게이션) ───────────────────────────────────────
+   떠 있는 유리 알약이 아니라 도감의 색인이다. 정거장마다 카드와 같은 3:4 칩이
+   놓이고, 지나온 만큼 등뼈가 차오르며, 지금 있는 칸은 고른 유형의 색으로 찬다.
+   이름은 화면에서 무엇을 보는지로 부른다. */
+.map {
+  position: fixed; z-index: var(--sc-z-chrome);
+  right: clamp(0.85rem, 2.2vw, 2.2rem); top: 50%; translate: 0 -50%;
+  display: grid; gap: clamp(0.5rem, 1vh, 0.85rem);
+  padding: 0.55rem 0;
+}
+/* 등뼈: 옅은 선 위에 지나온 만큼만 진하게 찬다 (--h-t = 트랙 진행) */
+.map::before, .map::after {
+  content: ""; position: absolute; right: 5px; width: 1.5px; border-radius: 1px;
+  pointer-events: none;
+}
+.map::before {
+  top: 0.55rem; bottom: 0.55rem;
+  background: color-mix(in oklab, var(--sc-ink) 11%, transparent);
+}
+.map::after {
+  top: 0.55rem; height: calc((100% - 1.1rem) * var(--h-t));
+  background: color-mix(in oklab, var(--sc-accent) 52%, transparent);
+}
+.map__stop {
+  position: relative;
+  display: flex; align-items: center; justify-content: flex-end; gap: 0.6rem;
+  border: 0; background: none; cursor: pointer;
+  padding: 0.3rem 0; min-height: 26px;
+}
+.map__label {
+  font-size: 0.75rem; white-space: nowrap; color: var(--sc-ink-soft);
+  opacity: 0; transform: translateX(5px);
+  transition: opacity 240ms var(--sc-ease-out), transform 240ms var(--sc-ease-out);
+}
+.map__stop[aria-current="true"] .map__label { opacity: 1; transform: none; color: var(--sc-ink); font-weight: 500; }
+.map__stop:hover .map__label,
+.map__stop:focus-visible .map__label { opacity: 1; transform: none; }
+/* 칩은 16장과 같은 3:4 카드 모양이다 */
+.map__chip {
+  width: 11px; height: 15px; border-radius: 3px; flex: none;
+  border: 1.5px solid color-mix(in oklab, var(--sc-ink) 20%, transparent);
+  background: transparent;
+  transition: background-color 300ms var(--sc-ease-out),
+              border-color 300ms var(--sc-ease-out),
+              transform 300ms var(--sc-ease-out),
+              box-shadow 300ms var(--sc-ease-out);
+}
+.map__stop.is-passed .map__chip {
+  background: color-mix(in oklab, var(--sc-ink) 18%, transparent);
+  border-color: transparent;
+}
+.map__stop[aria-current="true"] .map__chip {
+  background: var(--pc, var(--sc-accent));
+  border-color: transparent;
+  transform: translateY(-1px) scale(1.18);
+  box-shadow: 0 3px 9px color-mix(in oklab, var(--pc, var(--sc-accent)) 42%, transparent);
+}
+.map__stop:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 4px; border-radius: 6px; }
+
+.mark {
+  position: fixed; z-index: var(--sc-z-chrome);
+  left: clamp(0.9rem, 2.4vw, 2.4rem); top: clamp(0.9rem, 2.4vw, 2rem);
+  display: flex; align-items: center; gap: clamp(0.5rem, 1vw, 0.9rem);
+}
+.mark__name {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: var(--sc-font-display); font-size: 1rem; color: var(--sc-ink);
+}
+.mark img { width: 26px; height: auto; }
+.mark__rule {
+  width: 1px; height: 0.95rem;
+  background: color-mix(in oklab, var(--sc-ink) 20%, transparent);
+}
+.mark a {
+  font-size: 0.82rem; color: var(--sc-ink-soft); text-decoration: none;
+  padding: 0.45rem 0.15rem; text-underline-offset: 4px;
+}
+.mark a:hover { color: var(--sc-ink); text-decoration: underline; }
+.mark a:focus-visible { outline: 2px solid #0B6076; outline-offset: 3px; border-radius: 4px; }
+
+/* ── 카피 층 ───────────────────────────────────────────────────────────── */
+.sc-world__copy .sc-copy { max-width: min(35rem, 84vw); }
+.sc-world__copy .sc-copy--lead,
+.sc-world__copy .sc-copy--trail { bottom: clamp(1.8rem, 6.5vh, 4.4rem); }
+@media (min-width: 861px) {
+  .sc-world__copy .sc-copy--trail { right: calc(var(--sc-gutter) + 5rem); }
+}
+/* 밝은 방이라 스크림은 모서리에만. 카피가 왼쪽에 앉는 구간에는 왼쪽만,
+   오른쪽에 앉는 구간에는 오른쪽만 켜진다. 가운데 벽은 건드리지 않는다. */
+.scrim--lead, .scrim--trail { position: absolute; inset: 0; pointer-events: none; }
+.scrim--lead {
+  opacity: var(--scrim-l, 0);
+  background: linear-gradient(to top right,
+    color-mix(in oklab, var(--sc-canvas) 94%, transparent) 0%,
+    color-mix(in oklab, var(--sc-canvas) 80%, transparent) 24%,
+    color-mix(in oklab, var(--sc-canvas) 34%, transparent) 44%,
+    transparent 62%);
+}
+.scrim--trail {
+  opacity: var(--scrim-r, 0);
+  background: linear-gradient(to top left,
+    color-mix(in oklab, var(--sc-canvas) 94%, transparent) 0%,
+    color-mix(in oklab, var(--sc-canvas) 80%, transparent) 24%,
+    color-mix(in oklab, var(--sc-canvas) 34%, transparent) 44%,
+    transparent 62%);
+}
+.copy h1, .copy h2 {
+  font-family: var(--sc-font-display); font-weight: 400;
+  font-size: var(--sc-t-2xl); line-height: 1.14; letter-spacing: var(--sc-track-snug);
+  margin: 0 0 var(--sc-3); text-wrap: balance; color: var(--sc-ink);
+}
+.copy h1 { font-size: var(--sc-t-3xl); }
+.copy p { margin: 0; font-size: var(--sc-t-base); line-height: 1.66; color: var(--sc-ink-soft);
+  max-width: 30ch; text-wrap: pretty; }
+.copy--right { text-align: right; }
+.copy--right p { margin-left: auto; }
+
+/* ── 카메라 — 움직임 축소가 켜져 있으면 통째로 빠진다 ────────────────────── */
+html:not(.h-reduce) .seg--wall1 .wall {
+  transform:
+    translate3d(calc((0.5 - var(--h-l0)) * 20vw + var(--h-rifle) * (var(--cw) + var(--gap))),
+                calc(-7vh + var(--h-l0) * 0.8vh), calc(-140px + var(--h-l0) * 120px))
+    rotateY(calc((0.5 - var(--h-l0)) * 11deg)) rotateX(1.5deg);
+}
+html:not(.h-reduce) .seg--wall2 .wall {
+  transform:
+    translate3d(calc(-10vw + var(--h-l1) * 4vw + var(--h-rifle) * (var(--cw) + var(--gap))),
+                calc(-6.2vh - var(--h-l1) * 0.8vh), calc(-20px - var(--h-l1) * 260px))
+    rotateY(calc(-5.5deg + var(--h-l1) * 3.5deg)) rotateX(calc(1.5deg + var(--h-l1) * 3deg));
+}
+html:not(.h-reduce) .seg--wall3 .wall {
+  transform:
+    translate3d(calc(-6vw + var(--h-l2) * 6vw + var(--focus-x) * var(--h-l2) + var(--h-rifle) * (var(--cw) + var(--gap)) * (1 - var(--h-l2))),
+                calc(-7vh + var(--h-l2) * 7vh + var(--focus-y) * var(--h-l2)), calc(-280px + var(--h-l2) * 580px))
+    rotateY(calc(-2deg + var(--h-l2) * 2deg)) rotateX(calc(4.5deg - var(--h-l2) * 4.5deg));
+}
+/* 2막: 같은 벽이 흩어진다. 카드마다 무게가 달라서 흩어지는 양도 다르다. */
+html:not(.h-reduce) .seg--wall2 .card {
+  transform:
+    translate3d(calc(var(--sx) * var(--h-l1) * 1.2px), calc(var(--sy) * var(--h-l1) * 1.2px), calc(var(--sz) * var(--h-l1) * 1px))
+    rotate(calc(var(--sr) * var(--h-l1) * 1deg));
+}
+html:not(.h-reduce) .seg--peak .peak {
+  transform: translate3d(0, calc(var(--h-l3) * -4vh), 0)
+             scale(calc(0.625 + var(--h-l3) * 0.375))
+             rotateY(calc(var(--h-l3) * -6deg));
+}
+html:not(.h-reduce) .seg--track .track {
+  transform: translate3d(-6vw, calc(4vh - var(--h-l4) * 5vh), 0) rotateX(calc(9deg - var(--h-l4) * 9deg));
+}
+html:not(.h-reduce) .seg--track .track__mini {
+  transform: translate3d(calc(var(--h-l4) * -34vw), calc(var(--h-l4) * 4vh), 0)
+             scale(calc(3.17 - var(--h-l4) * 2.17));
+}
+.seg--track .track { opacity: clamp(0, calc((var(--h-l4) - 0.04) * 5), 1); }
+html:not(.h-reduce) .seg--close .plate {
+  transform: translate3d(0, calc((1 - var(--h-l5)) * 4.5vh), 0);
+}
+
+html.h-reduce .room__deep, html.h-reduce .room__light { display: none; }
+
+/* 진행에 따라 켜지는 것들은 움직임 축소에서도 살아 있다 (뜻을 나르는 부분) */
+.seg--peak .peak__phrase { opacity: clamp(0, min(calc((var(--h-l3) - 0.42) * 7), calc((1.04 - var(--h-l3)) * 9)), 1); }
+.seg--peak .tray__tile   { opacity: clamp(0, min(calc((var(--h-l3) - 0.52 - var(--k) * 0.05) * 11), calc((1.04 - var(--h-l3)) * 9)), 1); }
+.seg--peak .tray__note   { opacity: clamp(0, calc((var(--h-l3) - 0.78) * 7), 1); }
+.seg--close .plate       { opacity: clamp(0, calc(var(--h-l5) * 7), 1); }
+
+@media (max-width: 860px) {
+  :root { --cw: clamp(60px, 18vw, 96px); --gap: clamp(7px, 2vw, 13px); }
+  .copy h1 { font-size: var(--sc-t-2xl); }
+  .copy h2 { font-size: var(--sc-t-xl); }
+  .map { top: auto; bottom: 0.85rem; right: 50%; translate: 50% 0;
+         grid-auto-flow: column; align-items: center; gap: 0.55rem; padding: 0; }
+  .map::before, .map::after { display: none; }
+  .map__stop { padding: 0.65rem 0.4rem; }   /* 손가락이 닿는 크기 */
+  .map__label {
+    position: absolute; bottom: calc(100% - 0.2rem); left: 50%; translate: -50% 0;
+    transform: none; font-size: 0.7rem;
+  }
+  .map__stop[aria-current="true"] .map__label { transform: none; }
+  .mark { gap: 0.45rem; }
+  .mark__name { font-size: 0.92rem; }
+  .mark a { font-size: 0.78rem; }
+  .readout { bottom: 5.2rem; }
+  .track { width: 82vw; }
+  .plate__logo { width: 84px; }
+}
+</style>
+</head>
+<body>
+
+<div class="sc-grain" aria-hidden="true"></div>
+
+<div class="mark">
+  <span class="mark__name"><img src="assets/obj/logo.webp" alt="" width="26" height="26" decoding="async">하루두알</span>
+  <span class="mark__rule" aria-hidden="true"></span>
+  <a href="contact.html">문의하기</a>
+  <a href="newsletter.html">주간 레터</a>
+</div>
+
+<nav class="map" aria-label="도감 안의 위치">
+  <button class="map__stop" type="button" data-stop="0"><span class="map__label">유형 도감</span><span class="map__chip" aria-hidden="true"></span></button>
+  <button class="map__stop" type="button" data-stop="1"><span class="map__label">뭐부터?</span><span class="map__chip" aria-hidden="true"></span></button>
+  <button class="map__stop" type="button" data-stop="2"><span class="map__label">네 가지 축</span><span class="map__chip" aria-hidden="true"></span></button>
+  <button class="map__stop" type="button" data-stop="3"><span class="map__label">내 유형</span><span class="map__chip" aria-hidden="true"></span></button>
+  <button class="map__stop" type="button" data-stop="4"><span class="map__label">4주 기록</span><span class="map__chip" aria-hidden="true"></span></button>
+  <button class="map__stop" type="button" data-stop="5"><span class="map__label">시작하기</span><span class="map__chip" aria-hidden="true"></span></button>
+</nav>
+
+<main data-sc-mode="worldflight" data-sc-seam="0.3" data-sc-lerp="0.12">
+
+  <div data-sc-world>
+
+    <!-- 방은 하나뿐이다. 레그마다 각자 불투명한 바닥을 들고 있으면 이음매마다
+         새 레그의 빈 방이 앞 장면을 덮어 화면이 통째로 허옇게 난다. -->
+    <div class="room" aria-hidden="true">
+      <div class="room__base"></div>
+      <div class="room__deep" data-deep></div>
+      <div class="room__wash"></div>
+      <div class="room__light" data-light></div>
+      <div class="room__floor"></div>
+    </div>
+
+    <!-- 1 · 도감의 벽 · 호기심 -->
+    <div data-sc-segment data-sc-w="1.9" data-sc-waypoint="유형 도감" class="seg--wall1">
+      <i data-sc-poster aria-hidden="true"></i>
+      <div class="scene">
+        <div class="wall">
+          <ol class="wall__grid" id="wall-live" aria-label="건강행동유형 16가지"></ol>
+        </div>
+        <p class="readout" id="readout" aria-live="polite">
+          <b class="readout__code"></b><span class="readout__line"></span>
+        </p>
+        <p class="hint" id="hint">좌우로 밀면 도감이 넘어가요</p>
+      </div>
+    </div>
+
+    <!-- 2 · 흩어짐 · 답답함 -->
+    <div data-sc-segment data-sc-w="1.6" data-sc-waypoint="뭐부터?" class="seg--wall2">
+      <i data-sc-poster aria-hidden="true"></i>
+      <div class="scene" aria-hidden="true"><div class="wall"><ol class="wall__grid" data-clone></ol></div></div>
+    </div>
+
+    <!-- 3 · 좁혀짐 · 집중 -->
+    <div data-sc-segment data-sc-w="1.5" data-sc-waypoint="네 가지 축" class="seg--wall3">
+      <i data-sc-poster aria-hidden="true"></i>
+      <div class="scene">
+        <div class="wall" aria-hidden="true"><ol class="wall__grid" data-clone></ol></div>
+        <div class="axes" id="axes">
+          <p class="axis" style="--ac: var(--ax-as)"><b>A</b> 에너지 수준</p>
+          <p class="axis" style="--ac: var(--ax-pr)"><b>R</b> 건강관리 방식</p>
+          <p class="axis" style="--ac: var(--ax-bi)"><b>I</b> 영양 패턴</p>
+          <p class="axis" style="--ac: var(--ax-ct)"><b>T</b> 스트레스 대응</p>
+        </div>
+        <p class="count" id="count">남은 유형 <span>16</span></p>
+      </div>
+    </div>
+
+    <!-- 4 · 내 카드 · 발견 (피크) -->
+    <div data-sc-segment data-sc-w="3.3" data-sc-linger="0.18" data-sc-waypoint="내 유형" class="seg--peak">
+      <i data-sc-poster aria-hidden="true"></i>
+      <div class="scene">
+        <div class="pool" aria-hidden="true"></div>
+        <div class="peak">
+          <div class="peak__card" id="peak-card">
+            <img class="peak__img" id="peak-img" src="assets/types/SRIT.webp" alt="" width="560" height="560" decoding="async">
+            <span class="peak__code" id="peak-code">SRIT</span>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta">
-      <div class="cta-content">
-        <div class="container px-5">
-          <h2 class="text-white display-4 lh-1 mb-4">
-            하루두알과 함께하실 병원 및 기업 파트너를 모집합니다!
-          </h2>
-          <a class="btn btn-outline-light py-3 px-4 rounded-pill" href="#contact">데모/제휴 문의</a>
+        <p class="peak__phrase" id="peak-phrase">에너지 충전이 필요한, 섬세한 감성파</p>
+        <div class="tray" aria-hidden="true">
+          <div class="tray__tile" style="--k:0"><img src="assets/obj/n-magnesium.webp" alt="" width="256" height="256" decoding="async"></div>
+          <div class="tray__tile" style="--k:1"><img src="assets/obj/n-b-complex.webp" alt="" width="256" height="256" decoding="async"></div>
+          <div class="tray__tile" style="--k:2"><img src="assets/obj/n-l-theanine.webp" alt="" width="256" height="256" decoding="async"></div>
+          <div class="tray__tile" style="--k:3"><img src="assets/obj/n-omega3.webp" alt="" width="256" height="256" decoding="async"></div>
+          <div class="tray__tile" style="--k:4"><img src="assets/obj/n-vitamin-c.webp" alt="" width="256" height="256" decoding="async"></div>
         </div>
+        <p class="tray__note">예시로 놓아둔 다섯 칸이에요. 실제 항목은 설문 결과에 따라 달라져요.</p>
       </div>
-    </section>
+    </div>
 
-    <!-- Contact -->
-    <section class="bg-gradient-primary-to-secondary" id="contact">
-      <div class="container px-5 py-5">
-        <h2 class="text-center text-white font-alt mb-4">문의하기</h2>
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="card border-0 shadow rounded-xxl">
-              <div class="card-body p-4 p-md-5">
-                <form id="contactForm" action="https://formspree.io/f/xjkjkpnr" method="POST">
-                  <div class="form-floating mb-3">
-                    <input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..." required />
-                    <label for="name">이름 / 기관</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" required />
-                    <label for="email">이메일</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input class="form-control" id="phone" name="phone" type="tel" placeholder="010-0000-0000" />
-                    <label for="phone">연락처</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <textarea class="form-control" id="message" name="message" placeholder="프로젝트/제휴 내용을 남겨주세요" style="height: 10rem" required></textarea>
-                    <label for="message">메시지</label>
-                  </div>
-                  <input type="hidden" name="_subject" value="하루두알 웹사이트 문의" />
-                  <div class="d-grid">
-                    <button class="btn btn-primary rounded-pill btn-lg" id="submitButton" type="submit">보내기</button>
-                  </div>
-                </form>
-                <div class="d-none mt-3" id="submitSuccessMessage">
-                  <div class="text-center">
-                    <div class="fw-bolder">메시지가 전송되었습니다. 빠르게 연락드리겠습니다!</div>
-                  </div>
-                </div>
-                <div class="d-none mt-3" id="submitErrorMessage">
-                  <div class="text-center text-danger">전송에 실패했습니다. 다시 시도해주세요.</div>
-                </div>
-              </div>
-            </div>
-            <p class="text-center text-white-50 small mt-3">개인정보는 문의 응대 목적 외에는 사용되지 않습니다.</p>
-          </div>
+    <!-- 5 · 28칸 · 안심 -->
+    <div data-sc-segment data-sc-w="2.1" data-sc-waypoint="4주 기록" class="seg--track">
+      <i data-sc-poster aria-hidden="true"></i>
+      <div class="scene">
+        <div class="props" aria-hidden="true">
+          <img class="prop prop--a" src="assets/obj/i-daily-mission.webp" alt="" width="256" height="256" decoding="async">
+          <img class="prop prop--b" src="assets/obj/i-sleep.webp" alt="" width="256" height="256" decoding="async">
+          <img class="prop prop--c" src="assets/obj/i-medication.webp" alt="" width="256" height="256" decoding="async">
         </div>
+        <ol class="track" id="track" aria-label="4주 프로젝트 28일"></ol>
+        <div class="track__mini" id="mini" aria-hidden="true"><img src="assets/types/SRIT.webp" alt="" width="560" height="560" decoding="async"></div>
       </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-black text-center py-5">
-      <div class="container px-5">
-        <div class="text-white-50 small">
-          <div class="mb-2">© 하루두알 2026. All Rights Reserved.</div>
-          <a href="esg.html">ESG 자료실</a>
-          <span class="mx-1">·</span>
-          <a href="#">개인정보처리방침</a>
-          <span class="mx-1">·</span>
-          <a href="#">이용약관</a>
-          <span class="mx-1">·</span>
-          <a href="#">FAQ</a>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Feedback Modal (optional, kept if you need SB Forms) -->
-    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-gradient-primary-to-secondary p-4">
-            <h5 class="modal-title font-alt text-white" id="feedbackModalLabel">Send feedback</h5>
-            <button class="btn-close btn-close-white" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body border-0 p-4">
-            <p>이 모달은 템플릿 호환을 위해 유지되어 있습니다. 자체 문의 폼(#contact)을 사용합니다.</p>
-          </div>
+    <!-- 6 · 방의 끝 · 결심 -->
+    <div data-sc-segment data-sc-w="1.8" data-sc-waypoint="시작하기" class="seg--close">
+      <i data-sc-poster aria-hidden="true"></i>
+      <div class="scene">
+        <div class="plate">
+          <img class="plate__logo" src="assets/obj/logo.webp" alt="하루두알" width="108" height="108" decoding="async">
+          <a class="cta" href="https://harudooal.com" id="cta">지금 시작해볼까요</a>
+          <p class="plate__links">
+            <a href="contact.html">문의하기</a> · <a href="newsletter.html">주간 레터</a>
+          </p>
+          <p class="plate__legal">
+            HBTI는 하루두알이 만든 건강행동유형 지표예요. 성격 유형 검사가 아니에요.<br>
+            하루두알은 의료기기가 아니고, 질병의 진단이나 치료를 목적으로 하지 않아요.
+            건강 상태에 대한 판단이 필요하면 의료진과 상담해 주세요.<br>
+            주식회사 하루두알 · 대표 이승원 · 사업자등록번호 326-86-03655 ·
+            통신판매업 제2026-화성동탄-2414호 · 경기도 화성시 동탄구 메타폴리스로 42, 9층 902-S12호 ·
+            031-299-6163 · <a href="mailto:support@harudooal.com">support@harudooal.com</a> ·
+            <a href="https://api.harudooal.com/privacy/">개인정보처리방침</a>
+          </p>
         </div>
       </div>
     </div>
 
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+  </div><!-- /world -->
 
-    <!-- Lightweight form handler (no external service) -->
-    <script>
-      const form = document.getElementById('contactForm');
-      const successMsg = document.getElementById('submitSuccessMessage');
-      const errorMsg = document.getElementById('submitErrorMessage');
+  <div data-sc-world-copy>
+    <div class="sc-world__scrim scrim--lead" aria-hidden="true"></div>
+    <div class="sc-world__scrim scrim--trail" aria-hidden="true"></div>
 
-      form?.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    <div class="sc-copy sc-copy--lead copy" data-sc-copy data-sc-window="hero">
+      <h1>건강 습관에도<br>유형이 있어요</h1>
+      <p>48문항 5~7분이면 16가지 건강행동유형 가운데 내 유형이 나와요.</p>
+    </div>
 
-        const formData = new FormData(form);
-        const action = form.getAttribute('action');
+    <div class="sc-copy sc-copy--lead copy" data-sc-copy data-sc-window="0.175 0.280">
+      <h2>정보는 늘었는데,<br>순서는 아무도 안 알려줘요</h2>
+      <p>검진 수치, 걸음과 수면 기록, 사둔 영양제. 무엇부터 손대야 하는지가 늘 빠져 있어요.</p>
+    </div>
 
-        try {
-          const response = await fetch(action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'Accept': 'application/json',
-            },
-          });
+    <div class="sc-copy sc-copy--trail copy copy--right" data-sc-copy data-sc-window="0.300 0.375">
+      <h2>네 가지 축이 정해지면<br>열여섯이 하나가 돼요</h2>
+      <p>에너지 수준, 건강관리 방식, 영양 패턴, 스트레스 대응. 설문 한 번이면 충분해요.</p>
+    </div>
 
-          if (response.ok) {
-            successMsg?.classList.remove('d-none');
-            errorMsg?.classList.add('d-none');
-            form.reset();
-          } else {
-            throw new Error('Form submission failed');
-          }
-        } catch (err) {
-          successMsg?.classList.add('d-none');
-          errorMsg?.classList.remove('d-none');
-        }
-      });
-    </script>
-  </body>
+    <div class="sc-copy sc-copy--trail copy copy--right" data-sc-copy data-sc-window="0.445 0.550">
+      <h2>열여섯 중 한 장,<br>당신의 카드예요</h2>
+    </div>
+
+    <div class="sc-copy sc-copy--trail copy copy--right" data-sc-copy data-sc-window="0.575 0.668">
+      <p>리포트에는 유형 설명과 함께, 챙겨볼 만한 영양소 다섯 가지가 우선순위로 담겨요.</p>
+    </div>
+
+    <div class="sc-copy sc-copy--trail copy copy--right" data-sc-copy data-sc-window="0.700 0.845">
+      <h2>28칸이 차는 동안<br>변화가 기록돼요</h2>
+      <p>4주 프로젝트는 하루 한 칸이에요. 복용 체크와 수면·활동 기록이 쌓이면, 재측정에서 무엇이 달라졌는지 볼 수 있어요.</p>
+    </div>
+
+    <div class="sc-copy sc-copy--lead copy" data-sc-copy data-sc-window="finale">
+      <h2>그럼, 첫 칸부터<br>채워볼까요</h2>
+    </div>
+  </div>
+
+  <div data-sc-spacer aria-hidden="true"></div>
+</main>
+
+<script src="scrollcraft.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* 앱의 실제 데이터. src/constants/hbtiCatchphrases.ts, hbtiVisualThemes.ts */
+  var TYPES = [
+    ['APBC', '#2563A6', '활발하고 균형 잡힌, 침착한 건강 리더'],
+    ['APBT', '#765900', '에너지 넘치는 도전가, 긴장을 원동력으로 바꾸는 사람'],
+    ['APIC', '#454EA1', '적극적이지만 영양은 아직, 차분히 개선해 나가는 사람'],
+    ['APIT', '#237A4A', '열정 가득한 행동파, 균형 관리가 다음 과제'],
+    ['ARBC', '#A13F64', '활동적이면서 느긋한, 균형 잡힌 자연주의자'],
+    ['ARBT', '#08738A', '움직이는 것은 좋아하지만, 건강은 감에 맡기는 타입'],
+    ['ARIC', '#805325', '에너지는 높지만, 식습관 점검이 필요한 사람'],
+    ['ARIT', '#625A34', '끊임없이 움직이는 에너자이저, 루틴이 필요한 순간'],
+    ['SPBC', '#456A96', '조용하지만 철저한, 균형의 달인'],
+    ['SPBT', '#5A4D3C', '계획적인 안정주의자, 가끔 긴장을 푸는 연습이 필요해요'],
+    ['SPIC', '#8A5C00', '꼼꼼한 관리자인데, 영양 밸런스를 놓치기 쉬운 타입'],
+    ['SPIT', '#9A4B14', '신중하지만 예민한, 마음 관리가 건강의 열쇠'],
+    ['SRBC', '#0B7480', '느긋한 안정파, 균형 잡힌 식습관이 장점'],
+    ['SRBT', '#536677', '편안함을 추구하지만, 스트레스에 민감한 쉼표형'],
+    ['SRIC', '#3557A8', '조용히 쉬는 것을 좋아하지만, 영양 관리가 숙제'],
+    ['SRIT', '#76543D', '에너지 충전이 필요한, 섬세한 감성파']
+  ];
+  var WEIGHTS = [1.9, 1.6, 1.5, 3.3, 2.1, 1.8];
+  var TOTAL = WEIGHTS.reduce(function (a, b) { return a + b; }, 0);
+  /* 각 레그가 시작하는 트랙 위치. 무게를 바꾸면 여기가 따라 움직인다. */
+  var STARTS = WEIGHTS.reduce(function (acc, w) { acc.push(acc[acc.length - 1] + w); return acc; }, [0]);
+  var C3 = STARTS[2], C5 = STARTS[4];
+
+  var docEl = document.documentElement;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) docEl.classList.add('h-reduce');
+
+  function el(tag, cls) { var n = document.createElement(tag); if (cls) n.className = cls; return n; }
+
+  /* ---------------------------------------------------------------- 벽 짓기 */
+  var live = document.getElementById('wall-live');
+  TYPES.forEach(function (t, i) {
+    var li = el('li', 'card');
+    /* 흩어질 때의 무게. 카드마다 다르되 매번 같도록 index에서 뽑는다. */
+    var a = Math.sin(i * 12.9898) * 43758.5453; a -= Math.floor(a);
+    var b = Math.sin(i * 78.233) * 12543.1234;  b -= Math.floor(b);
+    li.style.setProperty('--sx', (a * 220 - 110).toFixed(1));
+    li.style.setProperty('--sy', (b * 150 - 75).toFixed(1));
+    li.style.setProperty('--sz', (a * 120 - 40).toFixed(1));
+    li.style.setProperty('--sr', (b * 26 - 13).toFixed(1));
+    li.style.setProperty('--c', t[1]);
+
+    var btn = el('button', 'card__face');
+    btn.type = 'button'; btn.tabIndex = i === 0 ? 0 : -1;
+    btn.dataset.i = String(i);
+    btn.setAttribute('aria-label', t[0] + '. ' + t[2]);
+
+    var img = el('img', 'card__img');
+    img.src = 'assets/types/' + t[0] + '.webp';
+    img.alt = ''; img.width = 560; img.height = 560; img.decoding = 'async';
+
+    var code = el('span', 'card__code'); code.textContent = t[0];
+    var line = el('span', 'card__line'); line.textContent = t[2];
+
+    btn.appendChild(img); btn.appendChild(code); btn.appendChild(line);
+    li.appendChild(btn); live.appendChild(li);
+  });
+
+  /* 2막·3막의 벽은 같은 물건을 다른 자리에서 본 것이다. 내용은 하나만 쓴다. */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-clone]'), function (holder) {
+    var copy = live.cloneNode(true);
+    copy.removeAttribute('id'); copy.removeAttribute('aria-label');
+    copy.removeAttribute('data-clone');
+    Array.prototype.forEach.call(copy.querySelectorAll('.card__face'), function (btn) {
+      var span = el('span', 'card__face');
+      span.style.pointerEvents = 'none';
+      while (btn.firstChild) span.appendChild(btn.firstChild);
+      btn.parentNode.replaceChild(span, btn);
+    });
+    holder.parentNode.replaceChild(copy, holder);
+  });
+  var walls = document.querySelectorAll('.wall__grid');
+  var wall3 = walls[walls.length - 1];
+
+  /* 숨 껍데기: 격자를 감싸기만 하고, 여기에만 매 프레임 transform 을 쓴다. */
+  var breaths = [];
+  Array.prototype.forEach.call(walls, function (g) {
+    var b = el('div', 'wall__breath');
+    g.parentNode.insertBefore(b, g);
+    b.appendChild(g);
+    breaths.push(b);
+  });
+
+  /* 28칸 */
+  var track = document.getElementById('track');
+  for (var d = 0; d < 28; d++) {
+    var cell = el('li', 'track__cell');
+    cell.style.setProperty('--k', String(d));
+    track.appendChild(cell);
+  }
+  var cells = track.children;
+
+  /* 방 뒤 보관고. 각자 다른 속도와 위상으로 떠다녀서 같은 리듬이 겹치지 않는다. */
+  var deepHost = document.querySelector('[data-deep]');
+  var deep = [];
+  [0, 2, 4, 5, 7, 9, 11, 12, 14, 15].forEach(function (n, i) {
+    var d = el('div', 'deep-card');
+    d.style.setProperty('--c', TYPES[n][1]);
+    var far = (i % 3) / 2;                       /* 0 = 가까움, 1 = 멀리 */
+    d.style.setProperty('--w', (26 - far * 12).toFixed(1) + 'vmin');
+    d.style.left = (6 + (i * 9.7) % 84).toFixed(1) + '%';
+    d.style.top = (8 + (i * 23.3) % 74).toFixed(1) + '%';
+    d.style.opacity = (0.15 - far * 0.055).toFixed(3);
+    deep.push({
+      el: d, far: far,
+      ax: 14 + far * 10, ay: 10 + far * 8,       /* 떠다니는 폭 */
+      sx: 0.07 + i * 0.006, sy: 0.05 + i * 0.005,
+      px: i * 1.7, py: i * 2.3,
+      rot: (i % 2 ? 1 : -1) * (3 + i * 0.4),
+      par: 26 - far * 18                          /* 손을 따라 밀리는 정도 */
+    });
+    deepHost.appendChild(d);
+  });
+  var lightEl = document.querySelector('[data-light]');
+  var room = document.querySelector('.room');
+
+  /* --------------------------------------------------- 시그니처: 도감 뒤적이기
+     스크롤은 카메라를 옮기고, 손은 벽을 옮긴다. 두 축이 따로 논다.
+     민 거리는 카드 폭 단위로 쌓이고, 손을 떼면 관성으로 굴러가다 격자에
+     정확히 맞춰 선다. 손 아래 있는 카드는 앞으로 들리고 제 문구를 읽어 준다.
+     그리고 4막에서 벽을 나오는 카드는 그때 손이 닿아 있던 그 카드다. */
+  var rifle = 0, vel = 0, dragging = false, lastX = 0, moved = 0, used = false;
+  var lifted = -1, chosen = 15;           /* 손이 안 닿으면 SRIT */
+  var readout = document.getElementById('readout');
+  var rCode = readout.querySelector('.readout__code');
+  var rLine = readout.querySelector('.readout__line');
+  var hint = document.getElementById('hint');
+  var allCards = document.querySelectorAll('.card');
+
+  function lift(i) {
+    if (i === lifted) return;
+    lifted = i;
+    Array.prototype.forEach.call(allCards, function (c, n) {
+      c.classList.toggle('is-lifted', (n % 16) === i);
+    });
+    if (i < 0) { readout.classList.remove('is-on'); return; }
+    chosen = i;
+    rCode.textContent = TYPES[i][0];
+    rCode.style.setProperty('--rc', TYPES[i][1]);
+    rLine.textContent = TYPES[i][2];
+    readout.classList.add('is-on');
+    paintChosen();
+  }
+
+  function focusChosen() {
+    var card = wall3.children[chosen];
+    if (!card) return;
+    var dx = (wall3.offsetWidth / 2) - (card.offsetLeft - wall3.offsetLeft + card.offsetWidth / 2);
+    var dy = (wall3.offsetHeight / 2) - (card.offsetTop - wall3.offsetTop + card.offsetHeight / 2);
+    docEl.style.setProperty('--focus-x', dx.toFixed(1) + 'px');
+    docEl.style.setProperty('--focus-y', dy.toFixed(1) + 'px');
+  }
+
+  function paintChosen() {
+    var t = TYPES[chosen];
+    docEl.style.setProperty('--pc', t[1]);
+    document.querySelector('.seg--peak').style.setProperty('--pc', t[1]);
+    document.getElementById('peak-card').style.setProperty('--pc', t[1]);
+    document.getElementById('peak-img').src = 'assets/types/' + t[0] + '.webp';
+    document.getElementById('peak-code').textContent = t[0];
+    document.getElementById('peak-phrase').textContent = t[2];
+    var mini = document.getElementById('mini');
+    mini.style.setProperty('--pc', t[1]);
+    mini.querySelector('img').src = 'assets/types/' + t[0] + '.webp';
+    Array.prototype.forEach.call(document.querySelectorAll('.axis b'), function (b, n) {
+      b.textContent = t[0].charAt(n);
+    });
+    focusChosen();
+  }
+  paintChosen();
+  addEventListener('resize', focusChosen);
+
+  function markUsed() { if (!used) { used = true; hint.classList.add('is-used'); } }
+  function unit() { return allCards[0].getBoundingClientRect().width + 12; }
+
+  function cardUnder(x, y) {
+    var hit = document.elementFromPoint(x, y);
+    var btn = hit && hit.closest ? hit.closest('.card__face') : null;
+    return btn && btn.dataset.i ? +btn.dataset.i : -1;
+  }
+
+  var stage = document.querySelector('[data-sc-world]');
+  var armed = null;   /* 눌리긴 했지만 아직 끄는 중은 아닌 상태 */
+
+  stage.addEventListener('pointerdown', function (e) {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    /* 누를 것이 있는 자리(링크·마감 판·지도)에서는 벽을 잡지 않는다.
+       포인터 캡처를 여기서 걸면 그 위의 클릭이 통째로 삼켜진다.
+       단 카드 자체는 버튼이면서 동시에 끄는 물건이라 예외다. */
+    var hit = e.target.closest && e.target.closest('a, button, .plate, .map');
+    if (hit && !hit.classList.contains('card__face')) return;
+    armed = e.pointerId; lastX = e.clientX; moved = 0; vel = 0;
+  });
+  stage.addEventListener('pointermove', function (e) {
+    if (armed !== null && !dragging) {
+      /* 4px 넘게 움직였을 때에만 진짜 드래그로 승격하고, 그때 캡처한다. */
+      if (Math.abs(e.clientX - lastX) < 4) return;
+      dragging = true;
+      try { stage.setPointerCapture(armed); } catch (err) {}
+    }
+    if (!dragging) { var i = cardUnder(e.clientX, e.clientY); if (i >= 0) lift(i); return; }
+    var dx = e.clientX - lastX; lastX = e.clientX; moved += Math.abs(dx);
+    rifle += dx / unit(); vel = dx / unit();
+    if (moved > 6) markUsed();
+  });
+  function endDrag(e) {
+    if (armed !== null && dragging) {
+      try { stage.releasePointerCapture(armed); } catch (err) {}
+    }
+    var wasDragging = dragging;
+    armed = null; dragging = false;
+    if (!wasDragging || moved < 6) { var i = cardUnder(e.clientX, e.clientY); if (i >= 0) lift(i); }
+  }
+  stage.addEventListener('pointerup', endDrag);
+  stage.addEventListener('pointercancel', endDrag);
+  stage.addEventListener('wheel', function (e) {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      rifle -= e.deltaX / unit(); vel = -e.deltaX / unit(); markUsed();
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  /* 키보드로도 열여섯 장을 다 읽을 수 있어야 한다 */
+  live.addEventListener('keydown', function (e) {
+    var step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1
+             : e.key === 'ArrowDown' ? 4 : e.key === 'ArrowUp' ? -4 : 0;
+    if (!step) return;
+    e.preventDefault();
+    var next = Math.max(0, Math.min(15, (lifted < 0 ? chosen : lifted) + step));
+    var btns = live.querySelectorAll('.card__face');
+    Array.prototype.forEach.call(btns, function (b, n) { b.tabIndex = n === next ? 0 : -1; });
+    btns[next].focus();
+    lift(next); markUsed();
+  });
+  live.addEventListener('focusin', function (e) {
+    var b = e.target.closest ? e.target.closest('.card__face') : null;
+    if (b && b.dataset.i) lift(+b.dataset.i);
+  });
+
+  /* 손의 위치. 값 자체가 아니라 값을 향해 가는 속도로 움직임이 부드러워진다. */
+  var aimX = innerWidth * 0.5, aimY = innerHeight * 0.42;
+  var lightX = aimX, lightY = aimY, tiltX = 0, tiltY = 0;
+  addEventListener('pointermove', function (e) {
+    aimX = e.clientX; aimY = e.clientY;
+    if (!reduce) room.classList.add('is-lit');
+  }, { passive: true });
+  addEventListener('pointerdown', function (e) { aimX = e.clientX; aimY = e.clientY; }, { passive: true });
+
+  /* ------------------------------------------------------------------ 카메라 */
+  var root = document.querySelector('[data-sc-mode="worldflight"]');
+  var axes = document.querySelectorAll('.axis');
+  var countEl = document.getElementById('count');
+  var countNum = countEl.querySelector('span');
+  var STEPS = [0.16, 0.36, 0.56, 0.76];
+  var tSmooth = null, LERP = 0.085;   /* 낮출수록 세계가 손보다 무겁게 따라온다 */
+  /* 카피 창과 같은 구간. 왼쪽에 앉는 블록과 오른쪽에 앉는 블록. */
+  var LEFT  = [[0, 0.115], [0.175, 0.280], [0.845, 1.01]];
+  var RIGHT = [[0.300, 0.375], [0.445, 0.672], [0.700, 0.850]];
+  function win(p, ranges) {
+    var best = 0;
+    for (var i = 0; i < ranges.length; i++) {
+      var a = ranges[i][0], b = ranges[i][1], r = (b - a) * 0.28;
+      var v = p < a - r || p > b + r ? 0
+            : p < a ? (p - (a - r)) / r
+            : p > b ? ((b + r) - p) / r : 1;
+      if (v > best) best = v;
+    }
+    return Math.max(0, Math.min(1, best));
+  }
+  var lastCount = -1, lastSettled = -1;
+
+  var lastT = performance.now();
+  function frame(now) {
+    now = now || performance.now();
+    var dt = Math.min(now - lastT, 50); lastT = now;
+    /* 프레임률이 흔들려도 같은 속도로 따라가도록 dt 로 보정한다 */
+    var k = 1 - Math.pow(1 - LERP, dt / 16.67);
+
+    /* 배경은 스크롤과 무관하게 늘 조금씩 움직인다. 휠이 멈춘 사이에도 세계가
+       살아 있으면, 휠의 계단이 계단으로 읽히지 않는다. */
+    if (!reduce) {
+      var sec = now / 1000;
+      lightX += (aimX - lightX) * k * 0.55;
+      lightY += (aimY - lightY) * k * 0.55;
+      lightEl.style.transform = 'translate3d(' + lightX.toFixed(1) + 'px,' + lightY.toFixed(1) + 'px,0)';
+      tiltX += (((aimX / innerWidth) - 0.5) * 2 - tiltX) * k * 0.5;
+      tiltY += (((aimY / innerHeight) - 0.5) * 2 - tiltY) * k * 0.5;
+      for (var bi = 0; bi < breaths.length; bi++) {
+        breaths[bi].style.transform =
+          'translate3d(' + (Math.sin(sec * 0.24) * 3.4).toFixed(2) + 'px,' +
+                           (Math.cos(sec * 0.19) * 2.6).toFixed(2) + 'px,0)';
+      }
+      for (var di = 0; di < deep.length; di++) {
+        var d = deep[di];
+        var dx = Math.sin(sec * d.sx + d.px) * d.ax + tiltX * d.par;
+        var dy = Math.cos(sec * d.sy + d.py) * d.ay + tiltY * d.par * 0.6;
+        d.el.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0) rotate(' +
+          (Math.sin(sec * d.sx * 0.7 + d.py) * d.rot).toFixed(2) + 'deg)';
+      }
+    }
+
+    if (!dragging) {
+      /* 손을 떼면 굴러가다 격자에 맞춰 선다. 정확히 서는 것이 이 무브의 절반이다. */
+      rifle += vel; vel *= 0.9;
+      if (Math.abs(vel) < 0.01) {
+        vel = 0;
+        var rest = Math.round(rifle) - rifle;
+        rifle = Math.abs(rest) < 0.002 ? Math.round(rifle) : rifle + rest * 0.2;
+      }
+    }
+    rifle = Math.max(-3, Math.min(3, rifle));
+    docEl.style.setProperty('--h-rifle', rifle.toFixed(4));
+
+    var top = root.getBoundingClientRect().top + scrollY;
+    var vh = Math.max(innerHeight, 1);
+    var tRaw = Math.max(0, Math.min(TOTAL, (scrollY - top) / vh));
+    if (tSmooth === null || reduce) tSmooth = tRaw;
+    else tSmooth += (tRaw - tSmooth) * k;
+    var t = tSmooth;
+    docEl.style.setProperty('--h-t', (t / TOTAL).toFixed(4));
+
+    var c = 0;
+    for (var i = 0; i < WEIGHTS.length; i++) {
+      var local = (t - c) / WEIGHTS[i];
+      c += WEIGHTS[i];
+      docEl.style.setProperty('--h-l' + i, Math.max(-0.25, Math.min(1.25, local)).toFixed(4));
+    }
+
+    /* 3막: 축이 하나씩 정해지고 후보가 꺼진다. 16 → 8 → 4 → 2 → 1 */
+    var l2 = Math.max(0, Math.min(1, (t - C3) / WEIGHTS[2]));
+    var code = TYPES[chosen][0];
+    var settled = 0;
+    for (var s = 0; s < 4; s++) if (l2 >= STEPS[s]) settled++;
+    if (settled !== lastSettled) {
+      for (var a2 = 0; a2 < 4; a2++) axes[a2].classList.toggle('is-on', a2 < settled);
+      lastSettled = settled;
+    }
+    for (var k = 0; k < 16; k++) {
+      var out = false;
+      for (var ax = 0; ax < settled; ax++) if (TYPES[k][0].charAt(ax) !== code.charAt(ax)) out = true;
+      wall3.children[k].classList.toggle('is-out', out);
+    }
+    var remain = 16 >> settled;
+    if (remain !== lastCount) { countNum.textContent = String(remain); lastCount = remain; }
+    countEl.classList.toggle('is-on', l2 > 0.08 && l2 < 0.94);
+
+    /* 카피가 앉는 모서리만 눌러 준다. 창(window)과 같은 구간을 쓴다. */
+    var pr = t / TOTAL;
+    docEl.style.setProperty('--scrim-l', win(pr, LEFT).toFixed(3));
+    docEl.style.setProperty('--scrim-r', win(pr, RIGHT).toFixed(3));
+
+    /* 5막: 28칸이 하루 한 칸씩 */
+    var l4 = Math.max(0, Math.min(1, (t - C5) / WEIGHTS[4]));
+    var filled = Math.round(l4 * 31) - 2;
+    for (var m = 0; m < 28; m++) cells[m].classList.toggle('is-on', m <= filled);
+    props[0].classList.toggle('is-on', l4 > 0.16);
+    props[1].classList.toggle('is-on', l4 > 0.42);
+    props[2].classList.toggle('is-on', l4 > 0.66);
+
+    requestAnimationFrame(frame);
+  }
+  var props = document.querySelectorAll('.prop');
+
+  /* ------------------------------------------------------------------- 지도 */
+  var stops = document.querySelectorAll('.map__stop');
+  function stopTop(i) {
+    var c = 0; for (var n = 0; n < i; n++) c += WEIGHTS[n];
+    return (root.getBoundingClientRect().top + scrollY) + c * innerHeight + 6;
+  }
+  Array.prototype.forEach.call(stops, function (b, i) {
+    b.addEventListener('click', function () {
+      scrollTo({ top: stopTop(i), behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+  function markStops(index) {
+    Array.prototype.forEach.call(stops, function (b, i) {
+      b.setAttribute('aria-current', String(i === index));
+      b.classList.toggle('is-passed', i < index);
+    });
+  }
+  addEventListener('sc:waypoint', function (e) { markStops(e.detail.index); });
+  markStops(0);
+
+  /* 스페이서는 mount 때 한 번 재어진다. 폰트가 바뀌면 다시 재게 한다. */
+  function relayout() { dispatchEvent(new Event('resize')); }
+  addEventListener('load', relayout);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
+
+  ScrollCraft.mount(document.body);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
 </html>

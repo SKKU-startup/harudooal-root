@@ -1,0 +1,207 @@
+/* ===========================================================================
+   하루두알 · 유틸리티 페이지 (문의 · 뉴스레터)
+   ---------------------------------------------------------------------------
+   도감 랜딩(index.html)과 같은 방에 있는 페이지들이다. 색·서체·모서리·그림자를
+   그대로 물려받되, 스크롤 비행은 쓰지 않는다. 폼이 있는 페이지는 한 화면에서
+   끝나는 것이 맞고, 여기서 카메라를 움직이면 입력을 방해할 뿐이다.
+   scrollcraft.css 다음에 로드된다.
+   ========================================================================= */
+
+:root {
+  --sc-canvas:     #F2F2EF;
+  --sc-surface:    #FFFFFF;
+  --sc-ink:        #14181C;
+  --sc-ink-soft:   #55606C;
+  --sc-accent:     #0E7490;
+  --sc-accent-ink: #FFFFFF;
+  --link:          #0B6076;   /* 본문 링크 — accent와 같은 hue, 한 단계 어둡게 */
+  --cta:           #127E98;
+  --cta-pressed:   #0E6E86;
+  --danger:        #B00020;
+
+  --sc-font-display: "Jua", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --sc-font-text:    "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+
+  --sc-shadow-color: 205 30% 24%;
+  --sc-r-sm: 8px; --sc-r-md: 14px; --sc-r-lg: 22px;
+}
+
+html { word-break: keep-all; overflow-wrap: break-word; }
+
+body {
+  /* fixed 배경은 기본 크기가 뷰포트라, 페이지가 길면 그 아래로 타일이 반복되며
+     가로 띠가 생긴다. cover + no-repeat 로 한 장만 깔리게 한다. */
+  background-image:
+    radial-gradient(120% 78% at 50% 0%, #FFFFFF 0%, #F4F4F1 48%, #E9EAE6 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #E9EAE6;
+  color: var(--sc-ink);
+  min-height: 100svh;
+}
+
+/* ── 머리·꼬리 ─────────────────────────────────────────────────────────── */
+.bar {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sc-4);
+  padding: clamp(1rem, 2.4vw, 1.6rem) var(--sc-gutter);
+}
+.bar__mark {
+  display: flex; align-items: center; gap: 0.5rem; margin: 0;
+  font-family: var(--sc-font-display); font-size: 1rem; color: var(--sc-ink);
+  text-decoration: none;
+}
+.bar__mark img { width: 26px; }
+.bar__back {
+  font-size: 0.86rem; color: var(--sc-ink-soft); text-decoration: none;
+  text-underline-offset: 4px; padding: 0.5rem 0.2rem;
+}
+.bar__back:hover { color: var(--sc-ink); text-decoration: underline; }
+
+.wrap {
+  width: min(var(--sc-maxw), 100%);
+  margin-inline: auto; padding-inline: var(--sc-gutter);
+}
+
+/* 왼쪽에 이야기, 오른쪽에 폼. 좁아지면 이야기가 위로 간다. */
+.duo {
+  display: grid; gap: clamp(2rem, 4vw, 4.5rem);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 27rem);
+  align-items: start;
+  padding-block: clamp(2rem, 6vh, 5rem) clamp(3rem, 8vh, 6rem);
+}
+@media (max-width: 900px) { .duo { grid-template-columns: minmax(0, 1fr); } }
+
+.lede h1 {
+  font-family: var(--sc-font-display); font-weight: 400;
+  font-size: var(--sc-t-3xl); line-height: 1.12; letter-spacing: var(--sc-track-snug);
+  margin: 0 0 var(--sc-4); text-wrap: balance;
+}
+.lede p { margin: 0 0 var(--sc-4); color: var(--sc-ink-soft); max-width: 34ch; text-wrap: pretty; }
+
+/* 편지 안에 무엇이 들었는지, 카드처럼 늘어놓지 않고 줄로 센다 */
+.inside { list-style: none; margin: var(--sc-6) 0 0; padding: 0; display: grid; gap: var(--sc-4); }
+.inside li {
+  display: grid; grid-template-columns: 2.2rem 1fr; align-items: baseline; gap: var(--sc-3);
+  max-width: 36ch;
+}
+.inside b {
+  font-family: var(--sc-font-display); font-size: 0.95rem; color: var(--sc-accent);
+  font-weight: 400;
+}
+.inside span { color: var(--sc-ink-soft); font-size: 0.95rem; line-height: 1.6; }
+
+/* ── 폼 판 ─────────────────────────────────────────────────────────────── */
+.plate {
+  background: var(--sc-surface); border-radius: var(--sc-r-lg);
+  box-shadow: var(--sc-e2), var(--sc-edge);
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+}
+.field { display: grid; gap: 0.45rem; margin-bottom: var(--sc-5); }
+.field > label { font-size: 0.9rem; font-weight: 500; }
+.field .opt { color: var(--sc-ink-soft); font-weight: 400; }
+
+input[type="email"], select, textarea {
+  width: 100%; padding: 0.85rem 0.9rem;
+  border: 1px solid color-mix(in oklab, var(--sc-ink) 18%, transparent);
+  border-radius: var(--sc-r-md); background: #FCFCFB; color: var(--sc-ink);
+  font-family: inherit; font-size: 1rem; line-height: 1.5;
+  transition: border-color 140ms var(--sc-ease-out), box-shadow 140ms var(--sc-ease-out);
+}
+textarea { min-height: 8.5rem; resize: vertical; }
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: none; border-color: var(--sc-accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--sc-accent) 26%, transparent);
+}
+input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--danger); }
+.err { font-size: 0.82rem; color: var(--danger); min-height: 1.1rem; }
+.err:empty { min-height: 0; }
+
+/* 동의는 접어 두되, 무엇에 동의하는지는 펼치면 다 나온다 */
+.consent { display: grid; gap: var(--sc-3); margin-bottom: var(--sc-5); }
+.check { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.65rem; align-items: start;
+  font-size: 0.88rem; line-height: 1.5; cursor: pointer; padding: 0.25rem 0; }
+.check input { width: 1.5rem; height: 1.5rem; margin: 0; accent-color: var(--cta); flex: none; }
+.check input:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 2px; }
+.check em { font-style: normal; color: var(--link); }
+details.terms { margin-left: 2rem; }
+details.terms > summary {
+  font-size: 0.8rem; color: var(--sc-ink-soft); cursor: pointer;
+  padding: 0.35rem 0; list-style-position: outside;
+}
+details.terms > summary:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 2px; border-radius: 4px; }
+details.terms table { border-collapse: collapse; font-size: 0.78rem; margin-top: 0.4rem; }
+details.terms th, details.terms td {
+  border: 1px solid color-mix(in oklab, var(--sc-ink) 12%, transparent);
+  padding: 0.4rem 0.55rem; text-align: left; vertical-align: top; color: var(--sc-ink-soft);
+}
+details.terms th { background: #F7F7F5; font-weight: 500; white-space: nowrap; }
+
+.send {
+  width: 100%; border: 0; cursor: pointer;
+  padding: 1rem 1.4rem; border-radius: var(--sc-r-pill);
+  background: var(--cta); color: #fff;
+  font-family: var(--sc-font-display); font-size: 1.05rem;
+  box-shadow: var(--sc-e1);
+  transition: background-color 140ms var(--sc-ease-out), transform 140ms var(--sc-ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .send:hover { background: var(--cta-pressed); transform: translateY(-1px); } }
+.send:active { transform: translateY(1px); }
+.send:focus-visible { outline: 3px solid var(--sc-ink); outline-offset: 3px; }
+.send[disabled] { background: color-mix(in oklab, var(--cta) 40%, #fff); cursor: default; transform: none; }
+
+.status {
+  margin: var(--sc-4) 0 0; font-size: 0.88rem; line-height: 1.6; color: var(--sc-ink-soft);
+}
+.status.is-good { color: var(--sc-ink); }
+.status.is-bad { color: var(--danger); }
+.note { margin: var(--sc-3) 0 0; font-size: 0.78rem; color: var(--sc-ink-soft); line-height: 1.6; }
+.note a { color: var(--link); text-underline-offset: 3px; }
+
+/* ── 유형 고르개 (뉴스레터) ───────────────────────────────────────────────── */
+.picker { border: 0; padding: 0; margin: 0 0 var(--sc-5); }
+.picker legend { font-size: 0.9rem; font-weight: 500; padding: 0; margin-bottom: 0.55rem; }
+.picker__grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem;
+}
+.pick { position: relative; }
+.pick input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.pick span {
+  display: grid; place-items: center; gap: 0.15rem;
+  aspect-ratio: 3 / 4; border-radius: var(--sc-r-sm);
+  background: var(--c); color: #fff;
+  font-family: var(--sc-font-display); font-size: 0.62rem; letter-spacing: 0.04em;
+  box-shadow: var(--sc-e1);
+  transition: transform 160ms var(--sc-ease-out), box-shadow 160ms var(--sc-ease-out);
+  overflow: hidden;
+}
+.pick img { width: 76%; height: 58%; object-fit: contain; }
+.pick input:checked + span { transform: translateY(-3px) scale(1.04); box-shadow: var(--sc-e3); }
+.pick input:focus-visible + span { outline: 3px solid var(--sc-ink); outline-offset: 2px; }
+.pick input:not(:checked) + span { filter: saturate(0.72) brightness(1.04); }
+.picker__none { margin: 0.6rem 0 0; font-size: 0.82rem; color: var(--sc-ink-soft); }
+.picker__none a { color: var(--link); text-underline-offset: 3px; }
+
+/* ── 다른 연락 방법 ────────────────────────────────────────────────────── */
+.other { margin: var(--sc-7) 0 0; display: grid; gap: var(--sc-3); max-width: 34ch; }
+.other h2 { font-family: var(--sc-font-display); font-weight: 400; font-size: 1.1rem; margin: 0; }
+.other p { margin: 0; font-size: 0.9rem; color: var(--sc-ink-soft); line-height: 1.7; }
+.other a { color: var(--link); text-underline-offset: 3px; }
+
+/* ── 꼬리말 ────────────────────────────────────────────────────────────── */
+.foot {
+  border-top: 1px solid color-mix(in oklab, var(--sc-ink) 10%, transparent);
+  padding: var(--sc-5) 0 var(--sc-7);
+  font-size: 0.72rem; line-height: 1.7; color: var(--sc-ink-soft);
+}
+.foot a { color: var(--link); text-underline-offset: 3px; }
+.foot p { margin: 0 0 0.5rem; max-width: 70ch; }
+
+@media (max-width: 560px) {
+  .picker__grid { gap: 0.35rem; }
+  .send { padding: 1.05rem 1.2rem; }   /* 손가락이 닿는 크기 */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 1ms !important; }
+}
