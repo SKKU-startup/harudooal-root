@@ -377,6 +377,18 @@ html { word-break: keep-all; overflow-wrap: break-word; }
 }
 .mark a:hover { color: var(--sc-ink); text-decoration: underline; }
 .mark a:focus-visible { outline: 2px solid #0B6076; outline-offset: 3px; border-radius: 4px; }
+.mark a.mark__survey {
+  color: #0B6076; background: #E2F1F2; border: 1px solid #C8E3E6;
+  border-radius: 999px; padding: 0.55rem 0.8rem; font-weight: 700;
+  white-space: nowrap;
+}
+.mark a.mark__survey:hover { background: #D3EAED; text-decoration: none; }
+@media (max-width: 480px) {
+  .mark { flex-wrap: wrap; max-width: calc(100vw - 1.8rem); }
+  .mark__name { flex-basis: 100%; }
+  .mark__rule { display: none; }
+  .mark a { white-space: nowrap; }
+}
 
 /* ── 카피 층 ───────────────────────────────────────────────────────────── */
 .sc-world__copy .sc-copy { max-width: min(35rem, 84vw); }
@@ -494,6 +506,7 @@ html.h-reduce .room__deep, html.h-reduce .room__light { display: none; }
 <div class="mark">
   <span class="mark__name"><img src="assets/obj/logo.webp" alt="" width="26" height="26" decoding="async">하루두알</span>
   <span class="mark__rule" aria-hidden="true"></span>
+  <a class="mark__survey" href="survey.html">간편 HBTI 검사</a>
   <a href="contact.html">문의하기</a>
   <a href="newsletter.html">주간 레터</a>
 </div>
@@ -599,7 +612,7 @@ html.h-reduce .room__deep, html.h-reduce .room__light { display: none; }
       <div class="scene">
         <div class="plate">
           <img class="plate__logo" src="assets/obj/logo.webp" alt="하루두알" width="108" height="108" decoding="async">
-          <a class="cta" href="https://harudooal.com" id="cta">지금 시작해볼까요</a>
+          <a class="cta" href="survey.html" id="cta">12문항으로 가볍게 시작하기</a>
           <p class="plate__links">
             <a href="contact.html">문의하기</a> · <a href="newsletter.html">주간 레터</a>
           </p>
