@@ -1,11 +1,11 @@
 # 12문항 간편 설문 — 실제 추천 연결
 
-상태: 운영 백엔드 API 반영 확인, 웹사이트 게시 전. 48문항 동등성 및 임상적 타당성 미검증.
+상태: 브랜치 구현 / 운영 미배포. 48문항 동등성 및 임상적 타당성 미검증.
 
 ## 데이터 흐름
 
 - 웹 GET /api/v1/surveys/short/ → 최신 DB에서 선정한 12문항, 원래 5단계 선택지, 판본 해시.
-- 처리 동의 후 응답을 POST 같은 경로로 전송. version, consent=true, answers={question_id: response_id}.
+- 처리 동의 후 12문항에 답하고, 마지막 단계에서 제형·건강 특이사항을 선택한다. 결과 제출은 POST `/api/v1/surveys/short/shop/` 한 번으로 이뤄진다.
 - 서버가 원래 가중치·역채점·축별 기준점과 기존 NutrientScoringService를 사용한다.
 - 예시 영양소 목록/브라우저 임시 50% 판정은 제거했다. 서버 오류·시간 초과·설문 판본 변경 시 오류/재시도 안내만 표시한다.
 - 응답과 결과는 계정/DB/로컬 저장소에 기록하지 않는다. 신규 API에서 본문을 로그로 남기지 않는다. 인프라/WAF/APM의 요청본문 수집 여부는 출시 전 별도 확인한다.
@@ -26,15 +26,28 @@
 
 기존 앱 엔진의 유형별 기본점수 + 실제 답변으로 확인된 건강관심사 점수 + 확인된 영양소 패턴 점수를 합산한다. 배타 그룹을 정리하고 점수순 최대 5개와 DB 추천 이유를 반환한다. 후보 부족 시 임의 보충하지 않는다. 기존 앱과 엔진은 같지만 입력 정보가 적으므로 결과가 같다고 보증하지 않는다.
 
-비로그인 웹에는 개인별 금기 필터가 없다. 섭취량·논문·미관측 건강관심사 목록은 공개 응답에서 제외한다. 화면 문구:
+기본 결과에는 개인별 금기 필터가 없다. 결과 뒤 상품 안내 단계에서 사용자가 직접 선택한 건강 특이사항에 대해 서버가 절대 금기를 먼저 제외하고, 남은 후보에서 최대 5개를 다시 선정한다. 상대적 주의는 영양소와 상품 카드에 표시한다. 후보 부족 시 임의 보충하지 않는다. 섭취량·논문·미관측 건강관심사 목록은 공개 응답에서 제외한다. 기본 결과 화면 문구:
 
 > 앱에서 로그인하고 건강 특이사항을 등록하면, 등록한 정보에 따른 섭취 금기 영양소 필터와 주의사항을 심층 리포트에서 함께 확인할 수 있어요.
 
 앱의 정밀 설문 완료와 기능별 이용 조건이 필요할 수 있다. 웹 결과가 앱 계정에 자동 이관되는 기능은 없다.
 
+## 비로그인 상품 안내
+
+- 12번째 문항 직후 제형·건강정보 선택 화면으로 이어지고, 제출하면 HBTI 성향·추천 영양소·검토된 상품 후보를 한 결과 화면에 표시한다. 결과를 보기 위해 별도 페이지에 다시 들어갈 필요가 없다. 게시·검토된 상품의 제형을 여러 개 선택할 수 있고, 목록 위의 전체 선택/전체 해제 버튼으로 일괄 변경할 수 있다. 아무것도 선택하지 않아도 전체 제형을 검색한다.
+- 건강정보는 알레르기·신체 상태/질환·약물 복용 범주를 전환해 스크롤하거나 이름을 검색해 여러 항목을 선택한다. 선택 항목은 범주 변경 후에도 유지되며 별도 칩에서 해제할 수 있다. 임신·수유는 항상 보이는 항목이다.
+- GET `/api/v1/surveys/short/shop/`: 선택 가능한 제형과 DB의 알레르기·건강 상태·복용약 태그, 임신·수유 항목.
+- POST `/api/v1/surveys/short/shop/`: `version`, `consent`, `answers`, `conditions: string[]`, `forms: string[]`를 전송한다. 빈 `forms`는 전체 제형, 여러 값은 그중 하나와 일치하는 상품을 뜻한다. 기존 `form: string` 단일 값도 호환 목적으로 받되 `forms`와 함께 지정할 수 없다. 서버가 응답을 검증·계산하며, HBTI 축 결과와 금기 영양소 제외 후 최대 5개 및 상품 후보를 함께 반환한다.
+- 상품은 게시된 카탈로그 라벨, 검토된 원료·제형, 유효한 쿠팡 판매 옵션이 있고 모든 표시 성분이 영양소 DB에 명확히 대응될 때만 최대 12개를 표시한다. 절대 금기가 하나라도 있으면 상품을 제외한다. 상품 매칭이 없을 수 있다.
+- 알레르기 태그를 선택한 경우 상품 전체 원료와의 구조화된 대조 데이터가 없어 상품 안내를 보류한다. 영양소 금기 규칙은 계속 적용되지만, 표시되지 않은 알레르겐이나 약물 상호작용까지 안전하다고 판단하지 않는다.
+- 상품이 없는 영양소는 빈 상태를 표시한다. 특정 제형을 선택했다면 '다른 제형까지 보기'로 제형 제한만 해제해 다시 조회하고, 건강정보·금기 조건은 유지한다. 알레르기로 안내가 보류된 경우 제형 확장 버튼은 보여주지 않는다.
+- POST `/api/v1/surveys/short/shop/link/`: 동일한 설문·조건과 `sku_id`, `offer_snapshot_id`를 다시 보내 상품/판매 옵션을 재검증한다. 서버가 쿠팡 제휴 링크를 시도하고, 불가능하면 검토된 기존 상품 주소를 돌려준다. 쿠팡으로 건강정보는 보내지 않는다.
+- 건강정보와 답변은 브라우저 메모리에만 두고 처음으로 돌아가거나 새 설문을 시작하면 지운다. 계정 저장·로그인은 하지 않는다. 인프라/WAF/APM의 요청본문 보관 설정은 출시 전 별도 점검해야 한다.
+- 이는 상품 후보 안내이며 의료적 안전성·영양소 결핍·복용 적합성을 확정하지 않는다. 실제 구매 전 전체 원료, 복용약, 임신·수유 상태를 전문가와 확인해야 한다.
+
 ## 개발자 연결 지점
 
-- 백엔드 `harudual-backend`: `surveys/short_views.py`, `surveys/services/short_survey.py`, `surveys/services/short_score.py`.
+- backend-web-hbti: surveys/short_views.py, services/short_survey.py, services/short_score.py.
 - 웹: js/short-survey-api.js (통신/응답 검증), js/short-survey.js (화면).
 - 기본 API는 https://api.harudooal.com/api/v1/surveys/short/. 로컬/DEV 검증 시 HTML head에 meta name="short-survey-api" content="검증 서버의 /api/v1/surveys/short/ URL"을 지정한다. 운영 HTML에 localhost/DEV 주소를 커밋하지 않는다.
 - 백엔드를 먼저 배포하고 실제 웹 Origin만 CORS 허용한다. API 배포 전에는 설문 로딩 실패가 정상이며 예시로 우회하지 않는다.
@@ -45,7 +58,7 @@
 ## 검증
 
 웹: node --test tests/short-survey.test.cjs
-백엔드: python manage.py test surveys.test_short_survey surveys.test_short_api surveys.test_scoring_golden
+백엔드: python manage.py test surveys.test_short_survey surveys.test_short_api surveys.test_scoring_golden surveys.test_short_shop
 E2E: scripts/e2e-test.py의 Anonymous Short Survey 여정(DEV).
 
 테스트 범위: 가중치/역채점 환산, 중간응답 ARBC, 앱 48문항 골든 회귀, 12개 답변만 추천 엔진에 전달, 시드 기반 실제 추천 5개/추천 이유/응답별 변화, 동의/잘못된 답변/판본 변경/요청 제한/미저장, 웹 오류·빈 결과·늦은 응답·텍스트 이스케이프.
@@ -54,5 +67,5 @@ E2E: scripts/e2e-test.py의 Anonymous Short Survey 여정(DEV).
 
 ## 배포
 
-웹 게시 원본은 `SKKU-startup/harudooal-root`의 `main` 브랜치다. 이 기능은 별도 브랜치/PR로 검토한 뒤 병합하면 GitHub Pages가 게시한다.
-운영 백엔드 `GET /api/v1/surveys/short/` 200 응답 및 `https://harudooal.com` Origin의 CORS 허용을 확인했다. 웹 게시 후 실제 브라우저에서 시작·12문항 응답·결과·추천 이유·앱 링크를 다시 점검한다.
+운영 웹 원본 저장소의 브랜치 `feat/web-personalized-coupang-survey` (main 기반)에서 작업한다. 상품 안내 백엔드 브랜치는 `feat/web-supplement-guide-20261119` (로컬 develop 기반)이다. 실제 공개 전 백엔드 API 배포, 개인정보·안전 검토 및 웹 병합이 필요하다.
+DEPLOYMENT.md에 실제 게시 원본이 SKKU-startup/harudooal-root로 기재돼 있으므로 Pages/미러링 경로 확인 후 반영한다.
